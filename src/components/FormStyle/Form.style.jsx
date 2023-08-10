@@ -1,30 +1,28 @@
 import styled from 'styled-components';
-import { BsPerson } from 'react-icons/bs';
+import { Field, Form } from 'formik';
+import { BsPerson, BsSearch } from 'react-icons/bs';
 import { AiOutlinePhone } from 'react-icons/ai';
 
-import { Field, Form as FormikForm } from 'formik';
-
-export const Form = styled(FormikForm)`
+export const FormStyled = styled(Form)`
   position: relative;
-  width: 400px;
-  height: 450px;
+  padding: 50px;
   background: transparent;
   border: 2px solid rgba(255, 255, 255, 0.5);
   border-radius: 20px;
   backdrop-filter: blur(15px);
   display: flex;
+  gap: 30px;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 `;
+
 export const InputWrap = styled.div`
   position: relative;
-  margin: 30px 0;
+
   width: 310px;
   border-bottom: 2px solid #fff;
 `;
 
-export const InputLabel = styled.label`
+export const InputName = styled.label`
   position: absolute;
   top: 50%;
   left: 5px;
@@ -35,7 +33,7 @@ export const InputLabel = styled.label`
   transition: 0.5s;
 `;
 
-export const Input = styled(Field)`
+export const InputStyled = styled(Field)`
   width: 100%;
   height: 50px;
   background: transparent;
@@ -52,30 +50,24 @@ export const Input = styled(Field)`
   }
 `;
 
-export const ErrorsMessageInput = styled.div`
+//// Form elements ==================================
+export const InvalidInput = styled.div`
   position: absolute;
   bottom: -25px;
-
   right: 10px;
   color: ${({ theme: { colors } }) => colors.red};
 `;
 
 export const PersonIcon = styled(BsPerson)`
   fill: ${({ theme }) => theme.colors.accent};
-
   position: absolute;
   right: 8px;
-
-  font-size: 1.2em;
   top: 20px;
 `;
 
 export const TelephoneIcon = styled(AiOutlinePhone)`
   fill: ${({ theme }) => theme.colors.accent};
-
   position: absolute;
   right: 8px;
-
-  font-size: 1.2em;
   top: 20px;
 `;

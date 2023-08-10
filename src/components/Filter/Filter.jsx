@@ -1,9 +1,11 @@
 import { setFilter } from 'redux/filterSlice';
-import { Input, InputLabel, InputWrap, SearchIcon } from './Filter.style';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { selectFilterValue } from 'redux/selectors';
 
-export function Filter() {
+import { Input, InputName, InputWrap, SearchIcon } from './Filter.style';
+
+export const Filter = () => {
   const value = useSelector(selectFilterValue);
   const dispatch = useDispatch();
 
@@ -19,7 +21,7 @@ export function Filter() {
         type="text"
         required
       />
-      <InputLabel>Find contacts</InputLabel>
+      <InputName>Find contacts</InputName>
     </InputWrap>
   );
-}
+};

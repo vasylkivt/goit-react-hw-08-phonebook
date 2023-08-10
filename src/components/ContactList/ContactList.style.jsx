@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 
 export const ListWrap = styled.div`
-  width: 400px;
   height: 550px;
-  padding: 20px;
+  padding: 20px 50px;
   overflow: auto;
 
   background: transparent;
@@ -16,6 +15,7 @@ export const ListWrap = styled.div`
 
   align-items: center;
 `;
+
 export const List = styled.ul`
   overflow: auto;
   display: flex;

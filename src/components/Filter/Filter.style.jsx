@@ -1,16 +1,16 @@
 import styled from 'styled-components';
-import { BsSearch } from 'react-icons/bs';
+
 import { DebounceInput } from 'react-debounce-input';
+import { BsSearch } from 'react-icons/bs';
 
 export const InputWrap = styled.div`
-  position: sticky;
-  top: 0;
-  margin-bottom: 30px;
-  margin-top: 60px;
+  position: relative;
+  margin: 30px 0 20px 0;
   width: 310px;
   border-bottom: 2px solid #fff;
 `;
-export const InputLabel = styled.label`
+
+export const InputName = styled.label`
   position: absolute;
   top: 50%;
   left: 5px;
@@ -24,10 +24,11 @@ export const InputLabel = styled.label`
 export const Input = styled(DebounceInput)`
   width: 100%;
   height: 50px;
+
   background: transparent;
   border: none;
   outline: none;
-  font-size: 1em;
+
   padding: 0 35px 0 5px;
   color: #fff;
 
@@ -40,10 +41,7 @@ export const Input = styled(DebounceInput)`
 
 export const SearchIcon = styled(BsSearch)`
   fill: ${({ theme }) => theme.colors.accent};
-
   position: absolute;
   right: 8px;
-
-  font-size: 1.2em;
   top: 20px;
 `;

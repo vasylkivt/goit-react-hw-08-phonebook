@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Toaster } from 'react-hot-toast';
-import { Header, ContactForm, Section, ContactList } from 'components';
+import { SharedLayout } from 'components';
 import { toastOptions } from 'styles';
 import { fetchContacts } from 'redux/operations';
+import { Route, Routes } from 'react-router-dom';
+import { Contacts, Home, Login, Register } from 'pages';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -14,11 +16,14 @@ export const App = () => {
 
   return (
     <>
-      <Header>PONEBOOK</Header>
-      <Section>
-        <ContactForm />
-        <ContactList />
-      </Section>
+      <Routes>
+        <Route path="/" element={<SharedLayout />}>
+          <Route index element={<Home />} />
+          <Route path="/contacts" element={<Contacts />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Route>
+      </Routes>
       <Toaster toastOptions={toastOptions} />
     </>
   );

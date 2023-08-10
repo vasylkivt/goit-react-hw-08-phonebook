@@ -2,30 +2,21 @@ import { Formik } from 'formik';
 import { useRef } from 'react';
 import { toast } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
-import * as Yup from 'yup';
 
-import {
-  ErrorsMessageInput,
-  Form,
-  Input,
-  InputLabel,
-  InputWrap,
-  PersonIcon,
-  TelephoneIcon,
-} from './ContactForm.style';
-import { Button } from 'components';
 import { addContact } from 'redux/operations';
 import { selectContacts } from 'redux/selectors';
-
-const ContactFormScheme = Yup.object().shape({
-  name: Yup.string()
-    .matches(/^[A-Za-z ]*$/, 'Please enter valid name')
-    .max(40),
-  phone: Yup.string().matches(
-    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
-    'Phone number is not valid'
-  ),
-});
+import { contactFormScheme } from './FormValidation';
+import {
+  Button,
+  FormStyled,
+  InputName,
+  InputStyled,
+  InputWrap,
+  InvalidInput,
+  PersonIcon,
+  TelephoneIcon,
+  Title,
+} from 'components';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
@@ -59,13 +50,14 @@ export const ContactForm = () => {
           phone: '',
         }}
         onSubmit={onSubmit}
-        validationSchema={ContactFormScheme}
+        validationSchema={contactFormScheme}
       >
         {({ errors, touched }) => (
-          <Form>
+          <FormStyled>
+            <Title>Add contact</Title>
             <InputWrap>
               <PersonIcon />
-              <Input
+              <InputStyled
                 innerRef={el => {
                   inputNameRef.current = el;
                 }}
@@ -74,22 +66,27 @@ export const ContactForm = () => {
                 name="name"
                 required
               />
-              <InputLabel>Contact name</InputLabel>
+              <InputName>Contact name</InputName>
               {errors.name && touched.name && (
-                <ErrorsMessageInput>{errors.name}</ErrorsMessageInput>
+                <InvalidInput>{errors.name}</InvalidInput>
               )}
             </InputWrap>
             <InputWrap>
               <TelephoneIcon />
-              <Input autoComplete="off" type="tel" name="phone" required />
-              <InputLabel>Phone number</InputLabel>
+              <InputStyled
+                autoComplete="off"
+                type="tel"
+                name="phone"
+                required
+              />
+              <InputName>Phone number</InputName>
               {errors.phone && touched.phone && (
-                <ErrorsMessageInput>{errors.phone}</ErrorsMessageInput>
+                <InvalidInput>{errors.phone}</InvalidInput>
               )}
             </InputWrap>
 
             <Button type="submit">Add contact</Button>
-          </Form>
+          </FormStyled>
         )}
       </Formik>
     </>
