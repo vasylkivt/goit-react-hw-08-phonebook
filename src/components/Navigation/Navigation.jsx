@@ -1,20 +1,18 @@
 import { NavLink } from 'react-router-dom';
+import { NavWrap, Wrap } from './Navigation.style';
 
 export const Navigation = () => {
   return (
-    <>
-      <NavLink to="/" end>
-        Home
-      </NavLink>
-      {false ? (
-        <></>
-      ) : (
-        <>
-          <NavLink to="/contacts">Contacts</NavLink>
-          <NavLink to="/login">Login</NavLink>
-          <NavLink to="/register">Register</NavLink>
-        </>
-      )}
-    </>
+    <NavWrap>
+      <Wrap>
+        <NavLink to="/">PHONEBOOK</NavLink>
+        <NavLink to="/">Home</NavLink>
+        <NavLink to="/contacts">Contacts</NavLink>
+      </Wrap>
+      <Wrap>
+        <NavLink to="/login">Login</NavLink>
+        <NavLink to="/register">Register</NavLink>
+      </Wrap>
+    </NavWrap>
   );
 };

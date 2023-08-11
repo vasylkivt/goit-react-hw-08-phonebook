@@ -1,18 +1,30 @@
 import { Navigation } from 'components';
-import { NavLink, Outlet } from 'react-router-dom';
-import { Header, Section } from './SharedLayout.style';
+import { Outlet } from 'react-router-dom';
+import {
+  Container,
+  Footer,
+  Header,
+  HeaderWrap,
+  Section,
+} from './SharedLayout.style';
 
 export const SharedLayout = () => {
   return (
     <>
       <Header>
-        <NavLink to="/">PHONEBOOK</NavLink>
-        <Navigation />
+        <Container>
+          <Navigation />
+        </Container>
       </Header>
 
-      <Section>
-        <Outlet />
-      </Section>
+      <main>
+        <Container>
+          <Section>
+            <Outlet />
+          </Section>
+        </Container>
+      </main>
+      <Footer></Footer>
     </>
   );
 };

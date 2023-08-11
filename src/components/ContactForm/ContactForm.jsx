@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { addContact } from 'redux/operations';
 import { selectContacts } from 'redux/selectors';
-import { contactFormScheme } from './FormValidation';
+import { contactFormScheme, isAlreadyOnList } from './FormValidation';
 import {
   Button,
   FormStyled,
@@ -21,20 +21,10 @@ import {
 export const ContactForm = () => {
   const dispatch = useDispatch();
   const contactList = useSelector(selectContacts);
-
   const inputNameRef = useRef();
 
   const onSubmit = (formData, action) => {
-    if (
-      contactList.find(
-        ({ name }) => name.toLowerCase() === formData.name.toLowerCase()
-      )
-    ) {
-      toast.error(`${formData.name}  is already in contacts. `);
-      return;
-    }
-    if (contactList.find(({ phone }) => phone === formData.phone)) {
-      toast.error(`Number "${formData.phone}" is already in contacts. `);
+    if (isAlreadyOnList(contactList, formData)) {
       return;
     }
     dispatch(addContact(formData));

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Field, Form } from 'formik';
-import { BsPerson, BsSearch } from 'react-icons/bs';
+import { BsPerson } from 'react-icons/bs';
 import { AiOutlinePhone } from 'react-icons/ai';
 
 export const FormStyled = styled(Form)`
@@ -12,6 +12,7 @@ export const FormStyled = styled(Form)`
   backdrop-filter: blur(15px);
   display: flex;
   gap: 30px;
+  max-height: 500px;
   flex-direction: column;
 `;
 
