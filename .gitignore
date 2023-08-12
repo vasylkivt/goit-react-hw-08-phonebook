@@ -5,6 +5,7 @@
 .idea/
 
 # dependencies
+redux-copy/
 /node_modules
 /.pnp
 .pnp.js

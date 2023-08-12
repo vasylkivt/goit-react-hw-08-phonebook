@@ -10,13 +10,21 @@ import {
   TelephoneIcon,
   Title,
 } from 'components';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { register } from 'redux/auth/operations';
 
 export const RegisterForm = () => {
+  const dispatch = useDispatch();
   return (
     <Formik
       initialValues={{ name: '', email: '', password: '' }}
       onSubmit={values => {
-        console.log(values);
+        dispatch(
+          register({
+            ...values,
+          })
+        );
       }}
     >
       <FormStyled>

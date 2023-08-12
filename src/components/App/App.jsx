@@ -3,16 +3,16 @@ import { useDispatch } from 'react-redux';
 import { Toaster } from 'react-hot-toast';
 import { SharedLayout } from 'components';
 import { toastOptions } from 'styles';
-import { fetchContacts } from 'redux/operations';
+// import { fetchContacts } from 'redux/contacts/operations';
 import { Route, Routes } from 'react-router-dom';
 import { Contacts, Home, Login, Register } from 'pages';
 
 export const App = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   // dispatch(fetchContacts());
+  // }, [dispatch]);
 
   return (
     <>

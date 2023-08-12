@@ -2,7 +2,9 @@ export * from 'components/App/App';
 
 export * from 'components/SharedLayout/SharedLayout';
 export * from 'components/Navigation/Navigation';
+export * from 'components/AppBar/AppBar';
 export * from 'components/UserMenu/UserMenu';
+export * from 'components/AuthNav/AuthNav';
 export * from 'components/ContactList/ContactList';
 export * from 'components/ContactItem/ContactItem';
 export * from 'components/ContactForm/ContactForm';

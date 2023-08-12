@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-export const NavWrap = styled.div`
+export const WrapUserMenu = styled.div`
   display: flex;
   gap: 30px;
 `;
-

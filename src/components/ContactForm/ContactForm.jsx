@@ -1,10 +1,9 @@
 import { Formik } from 'formik';
 import { useRef } from 'react';
-import { toast } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { addContact } from 'redux/operations';
-import { selectContacts } from 'redux/selectors';
+// import { addContact } from 'redux/contacts/operations';
+// import { selectContacts } from 'redux/contacts/selectors';
 import { contactFormScheme, isAlreadyOnList } from './FormValidation';
 import {
   Button,
@@ -19,17 +18,19 @@ import {
 } from 'components';
 
 export const ContactForm = () => {
-  const dispatch = useDispatch();
-  const contactList = useSelector(selectContacts);
+  // const dispatch = useDispatch();
+  // const contactList = useSelector(selectContacts);
   const inputNameRef = useRef();
 
   const onSubmit = (formData, action) => {
-    if (isAlreadyOnList(contactList, formData)) {
-      return;
-    }
-    dispatch(addContact(formData));
-    action.resetForm();
-    inputNameRef.current.focus();
+    // if (isAlreadyOnList(contactList, formData)) {
+    //   return;
+    // }
+    // dispatch(addContact(formData));
+    // action.resetForm();
+    // inputNameRef.current.focus();
+
+    console.log(formData);
   };
 
   return (

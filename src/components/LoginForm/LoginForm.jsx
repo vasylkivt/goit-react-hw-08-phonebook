@@ -11,19 +11,33 @@ import {
   Title,
 } from 'components';
 
+import { useDispatch/* , useSelector */ } from 'react-redux';
+// import { useNavigate } from 'react-router-dom';
+// import { selectIsLoggedIn } from 'redux/auth/selectors';
+import { login } from 'redux/auth/operations';
+
 export const LoginForm = () => {
+  const dispatch = useDispatch();
+  // const navigate = useNavigate();
+  // const isLoggedIn = useSelector(selectIsLoggedIn);
+
+
+  // if (isLoggedIn) {
+  //   return navigate('/contacts', { replace: true });
+   
+  // }
   return (
     <Formik
-      initialValues={{ name: '', password: '' }}
+      initialValues={{ email: '', password: '' }}
       onSubmit={values => {
-        console.log(values);
+        dispatch(login(values));
       }}
     >
       <FormStyled>
         <Title>Login</Title>
         <InputWrap>
           <PersonIcon />
-          <InputStyled autoComplete="off" type="text" name="name" required />
+          <InputStyled autoComplete="off" type="text" name="email" required />
           <InputName>Email</InputName>
         </InputWrap>
         <InputWrap>
