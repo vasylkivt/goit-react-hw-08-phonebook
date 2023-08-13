@@ -10,7 +10,7 @@ import {
   TelephoneIcon,
   Title,
 } from 'components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { register } from 'redux/auth/operations';
 
