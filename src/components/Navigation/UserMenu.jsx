@@ -1,18 +1,20 @@
 import { useDispatch } from 'react-redux';
-import { logout } from 'redux/auth/operations';
+import { authOperations } from 'redux/auth';
 
-import { WrapUserMenu } from './UserMenu.style';
 import { Link } from 'react-router-dom';
 import { useAuth } from 'hooks';
+import { Button } from 'components';
 
 export const UserMenu = () => {
   const dispatch = useDispatch();
   const { user } = useAuth();
 
   return (
-    <WrapUserMenu>
+    <>
       <Link to="/profile">{user.name}</Link>
-      <button onClick={() => dispatch(logout())}>Logout</button>
-    </WrapUserMenu>
+      <Button type="button" onClick={() => dispatch(authOperations.logout())}>
+        Logout
+      </Button>
+    </>
   );
 };

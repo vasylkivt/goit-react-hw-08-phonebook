@@ -8,7 +8,6 @@ import { PrivateRoute, PublicRoute, SharedLayout } from 'components';
 import { toastOptions } from 'styles';
 
 import { refresh } from 'redux/auth/operations';
-
 import { useAuth } from 'hooks';
 
 const Home = lazy(() => import('pages/Home'));

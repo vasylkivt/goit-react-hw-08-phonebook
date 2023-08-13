@@ -1,18 +1,22 @@
-
-import { AuthNav, Navigation, UserMenu } from "components";
-import { WrapNav } from "./AppBar.style";
-import { useAuth } from "hooks";
-
+import { AuthNav, Container, MainNav, UserMenu } from 'components';
+import { Header, NavWrap, Wrap } from './AppBar.style';
+import { useAuth } from 'hooks';
 
 export const AppBar = () => {
-
-   const { isLoggedIn } = useAuth();
-
+  const { isLoggedIn } = useAuth();
 
   return (
-    <WrapNav>
-      <Navigation />
-      {!isLoggedIn ? <AuthNav /> : <UserMenu />}
-    </WrapNav>
+    <Header>
+      <Container>
+        <NavWrap>
+          <Wrap>
+            <MainNav />
+          </Wrap>
+          <Wrap>
+            {!isLoggedIn ? <AuthNav /> : <UserMenu />}
+          </Wrap>
+        </NavWrap>
+      </Container>
+    </Header>
   );
 };
