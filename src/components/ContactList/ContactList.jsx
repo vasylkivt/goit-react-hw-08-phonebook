@@ -1,24 +1,16 @@
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+
 import { List, ListWrap } from './ContactList.style';
 import { ContactItem, Filter, Notification } from 'components';
 
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectContacts,
-  selectError,
-  selectLoading,
-} from 'redux/contacts/selectors';
-import { selectVisibleContacts } from 'redux/filter/selectors';
 import { getAllContacts } from 'redux/contacts/operations';
-import { selectIsLoggedIn } from 'redux/auth/selectors';
+import { useAuth, useContacts, useFilter } from 'hooks';
 
 export const ContactList = () => {
-  const visibleContacts = useSelector(selectVisibleContacts);
-  const contacts = useSelector(selectContacts);
-  const loading = useSelector(selectLoading);
-  const error = useSelector(selectError);
-
-  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const { contacts, loading, error } = useContacts();
+  const { visibleContacts } = useFilter();
+  const { isLoggedIn } = useAuth();
 
   const dispatch = useDispatch();
 

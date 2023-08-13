@@ -1,5 +1,5 @@
-import {  lazy, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { lazy, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 
 import { Toaster } from 'react-hot-toast';
@@ -8,7 +8,7 @@ import { PrivateRoute, PublicRoute, SharedLayout } from 'components';
 import { toastOptions } from 'styles';
 
 import { refresh } from 'redux/auth/operations';
-import { selectIsRefreshing } from 'redux/auth/selectors';
+import { useAuth } from 'hooks';
 
 const Home = lazy(() => import('pages/Home'));
 const Contacts = lazy(() => import('pages/Contacts'));
@@ -19,7 +19,7 @@ const ErrorPage = lazy(() => import('pages/ErrorPage'));
 
 export const App = () => {
   const dispatch = useDispatch();
-  const isRefreshing = useSelector(selectIsRefreshing);
+  const { isRefreshing } = useAuth();
 
   useEffect(() => {
     dispatch(refresh());
@@ -35,33 +35,23 @@ export const App = () => {
             <Route
               path="/contacts"
               element={
-                <PrivateRoute>
-                  <Contacts />
-                </PrivateRoute>
+                <PrivateRoute component={Contacts} redirectTo="/login" />
               }
             />
             <Route
               path="/profile"
               element={
-                <PrivateRoute>
-                  <UserProfile />
-                </PrivateRoute>
+                <PrivateRoute component={UserProfile} redirectTo="/login" />
               }
             />
             <Route
               path="/login"
-              element={
-                <PublicRoute>
-                  <Login />
-                </PublicRoute>
-              }
+              element={<PublicRoute component={Login} redirectTo="/contacts" />}
             />
             <Route
               path="/register"
               element={
-                <PublicRoute>
-                  <Register />
-                </PublicRoute>
+                <PublicRoute component={Register} redirectTo="/contacts" />
               }
             />
             <Route path="*" element={<ErrorPage />} />
