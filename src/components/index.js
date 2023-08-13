@@ -19,7 +19,7 @@ export * from 'components/Forms/LoginForm/LoginForm';
 export * from 'components/Forms/RegisterForm/RegisterForm';
 
 export * from 'components/StyleComponents/Container.style';
-export * from 'components/StyleComponents/Button.style';
+export * from 'components/StyleComponents/Buttons.style';
 export * from 'components/StyleComponents/Title.style';
 export * from 'components/Forms/Form.style';
 export * from 'components/StyleComponents/Notification.style';

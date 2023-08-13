@@ -3,6 +3,8 @@ export const NavWrap = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  height: 60px;
 `;
 
 export const Wrap = styled.div`
@@ -12,9 +14,9 @@ export const Wrap = styled.div`
 `;
 
 export const Header = styled.header`
-  padding: 15px 0;
 
-  min-height: 50px;
+
+ 
   background: transparent;
   border: 2px solid rgba(255, 255, 255, 0.5);
   border-radius: 2px;

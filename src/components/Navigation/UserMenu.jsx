@@ -1,9 +1,10 @@
 import { useDispatch } from 'react-redux';
 import { authOperations } from 'redux/auth';
 
-import { Link } from 'react-router-dom';
+
 import { useAuth } from 'hooks';
 import { Button } from 'components';
+import { StyledLink } from './Nav.style';
 
 export const UserMenu = () => {
   const dispatch = useDispatch();
@@ -11,7 +12,7 @@ export const UserMenu = () => {
 
   return (
     <>
-      <Link to="/profile">{user.name}</Link>
+      <StyledLink to="/profile">{user.name}</StyledLink>
       <Button type="button" onClick={() => dispatch(authOperations.logout())}>
         Logout
       </Button>
