@@ -1,17 +1,22 @@
 import PropTypes from 'prop-types';
-// import { useDispatch, useSelector } from 'react-redux';
-import { AiOutlineDelete } from 'react-icons/ai';
+
+import { AiFillEdit, AiOutlineDelete } from 'react-icons/ai';
 
 import { ButtonDel, Item, Text, TextWrap } from './ContactItem.style';
-// import { deleteContact } from 'redux/contacts/operations';
-// import { selectLoading } from 'redux/contacts/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectLoading } from 'redux/contacts/selectors';
+import { deleteContact } from 'redux/contacts/operations';
+import { editContact } from 'redux/contacts/slice';
 
-export const ContactItem = ({ contact: { id, name, phone } }) => {
-  // const dispatch = useDispatch();
-  // const loading = useSelector(selectLoading);
+export const ContactItem = ({ contact: { id, name, number } }) => {
+  const dispatch = useDispatch();
+  const loading = useSelector(selectLoading);
 
   const handlerDeleteBtn = () => {
-    // dispatch(deleteContact({ id, name }));
+    dispatch(deleteContact(id));
+  };
+  const handlerUpdateBtn = () => {
+    dispatch(editContact({ id, name, number }));
   };
 
   return (
@@ -19,15 +24,22 @@ export const ContactItem = ({ contact: { id, name, phone } }) => {
       <Item>
         <TextWrap>
           <Text>{name}</Text>
-          <Text>{phone}</Text>
+          <Text>{number}</Text>
         </TextWrap>
         <ButtonDel
-          // disabled={loading && 'disabled'}
+          disabled={loading && 'disabled'}
           onClick={handlerDeleteBtn}
           type="button"
         >
           <AiOutlineDelete />
         </ButtonDel>
+        <button
+          disabled={loading && 'disabled'}
+          onClick={handlerUpdateBtn}
+          type="button"
+        >
+          <AiFillEdit />
+        </button>
       </Item>
     </>
   );
@@ -36,6 +48,6 @@ export const ContactItem = ({ contact: { id, name, phone } }) => {
 ContactItem.propTypes = {
   contact: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    phone: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
   }).isRequired,
 };

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { store } from 'redux/store';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
@@ -51,11 +52,39 @@ const logoutRej = () => ({ type: 'auth/logout.rej' });
 export const logout = () => async dispatch => {
   try {
     dispatch(logoutPen());
-     await axios.post('/users/logout');
-   
+    await axios.post('/users/logout');
+
     clearAuthHeader();
     dispatch(logoutFul());
   } catch (error) {
     dispatch(logoutRej(error));
+  }
+};
+//!  action refresh
+
+const refreshPen = () => ({ type: 'auth/refresh.pen' });
+const refreshFul = (data) => ({ type: 'auth/refresh.ful',payload: data });
+const refreshRej = () => ({ type: 'auth/refresh.rej' });
+
+export const refresh = () => async dispatch => {
+  const state = store.getState();
+  const token = state.auth.token;
+
+  if (token === null) {
+    dispatch(refreshRej());
+    //! в createAsyncThunk треба робити штучну помилку(реджект)
+    return;
+  }
+
+  setAuthHeader(token);
+
+  try {
+    dispatch(refreshPen());
+    const { data } = await axios.get('/users/current');
+    
+    
+    dispatch(refreshFul(data));
+  } catch (error) {
+    dispatch(refreshRej(error));
   }
 };

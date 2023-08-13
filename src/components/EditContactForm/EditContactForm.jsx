@@ -1,5 +1,5 @@
 import { Formik } from 'formik';
-import { useRef } from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
 
 import { contactFormScheme, isAlreadyOnList } from './FormValidation';
@@ -14,45 +14,44 @@ import {
   TelephoneIcon,
   Title,
 } from 'components';
-import { selectContacts } from 'redux/contacts/selectors';
-import { addContact } from 'redux/contacts/operations';
+import { selectContacts, selectEditedContact } from 'redux/contacts/selectors';
+import { updateContact } from 'redux/contacts/operations';
 
-export const ContactForm = () => {
+export const EditContactForm = () => {
   const dispatch = useDispatch();
   const contactList = useSelector(selectContacts);
-  const inputNameRef = useRef();
+  const editedContact = useSelector(selectEditedContact);
+  const initialName = editedContact.name;
+  const initialNumber = editedContact.number;
 
-  const onSubmit = (formData, action) => {
-    if (isAlreadyOnList(contactList, formData)) {
+  const onSubmit = formData => {
+    if (isAlreadyOnList(editedContact.id, contactList, formData)) {
       return;
     }
-    dispatch(addContact(formData));
-    action.resetForm();
-    inputNameRef.current.focus();
+    dispatch(updateContact(editedContact.id, formData));
   };
 
   return (
     <>
       <Formik
+        enableReinitialize
         initialValues={{
-          name: '',
-          number: '',
+          name: initialName,
+          number: initialNumber,
         }}
         onSubmit={onSubmit}
         validationSchema={contactFormScheme}
       >
         {({ errors, touched }) => (
           <FormStyled>
-            <Title>Add contact</Title>
+            <Title>Edit contact</Title>
             <InputWrap>
               <PersonIcon />
               <InputStyled
-                innerRef={el => {
-                  inputNameRef.current = el;
-                }}
                 autoComplete="off"
                 type="text"
                 name="name"
+                // value={initialName}
                 required
               />
               <InputName>Contact name</InputName>
@@ -66,6 +65,7 @@ export const ContactForm = () => {
                 autoComplete="off"
                 type="tel"
                 name="number"
+                // value={initialNumber}
                 required
               />
               <InputName>Phone number</InputName>
@@ -74,7 +74,7 @@ export const ContactForm = () => {
               )}
             </InputWrap>
 
-            <Button type="submit">Add contact</Button>
+            <Button type="submit">Edit contact</Button>
           </FormStyled>
         )}
       </Formik>

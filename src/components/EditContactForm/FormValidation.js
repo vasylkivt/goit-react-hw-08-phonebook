@@ -11,13 +11,22 @@ export const contactFormScheme = Yup.object().shape({
   ),
 });
 
-export const isAlreadyOnList = (list, data) => {
-  if (list.find(({ name }) => name.toLowerCase() === data.name.toLowerCase())) {
+export const isAlreadyOnList = (editedId,list, data) => {
+ 
+ 
+  if (list.find(({ name, id }) => {
+    if (id === editedId) return false;
+    return name.toLowerCase() === data.name.toLowerCase()
+  })) {
     toast.error(`${data.name}  is already in contacts. `);
     return true;
   }
 
-  if (list.find(({ number }) => number === data.number)) {
+  if (list.find(({ number, id }) => {
+    if (id === editedId) return false;
+    
+    return number === data.number
+  })) {
     toast.error(`Number "${data.number}" is already in contacts. `);
     return true;
   }

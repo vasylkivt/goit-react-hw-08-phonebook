@@ -1,30 +1,74 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { Toaster } from 'react-hot-toast';
-import { SharedLayout } from 'components';
-import { toastOptions } from 'styles';
-// import { fetchContacts } from 'redux/contacts/operations';
+import {  lazy, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
-import { Contacts, Home, Login, Register } from 'pages';
+
+import { Toaster } from 'react-hot-toast';
+
+import { PrivateRoute, PublicRoute, SharedLayout } from 'components';
+import { toastOptions } from 'styles';
+
+import { refresh } from 'redux/auth/operations';
+import { selectIsRefreshing } from 'redux/auth/selectors';
+
+const Home = lazy(() => import('pages/Home'));
+const Contacts = lazy(() => import('pages/Contacts'));
+const Login = lazy(() => import('pages/Login'));
+const Register = lazy(() => import('pages/Register'));
+const UserProfile = lazy(() => import('pages/UserProfile'));
+const ErrorPage = lazy(() => import('pages/ErrorPage'));
 
 export const App = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const isRefreshing = useSelector(selectIsRefreshing);
 
-  // useEffect(() => {
-  //   // dispatch(fetchContacts());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(refresh());
+  }, [dispatch]);
 
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<SharedLayout />}>
-          <Route index element={<Home />} />
-          <Route path="/contacts" element={<Contacts />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Route>
-      </Routes>
-      <Toaster toastOptions={toastOptions} />
-    </>
+    !isRefreshing && (
+      <>
+        <Routes>
+          <Route path="/" element={<SharedLayout />}>
+            <Route index element={<Home />} />
+
+            <Route
+              path="/contacts"
+              element={
+                <PrivateRoute>
+                  <Contacts />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <PrivateRoute>
+                  <UserProfile />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <PublicRoute>
+                  <Login />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/register"
+              element={
+                <PublicRoute>
+                  <Register />
+                </PublicRoute>
+              }
+            />
+            <Route path="*" element={<ErrorPage />} />
+          </Route>
+        </Routes>
+        <Toaster toastOptions={toastOptions} />
+      </>
+    )
   );
 };
