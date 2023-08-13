@@ -1,6 +1,6 @@
 import { Formik } from 'formik';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { contactFormScheme, isAlreadyOnList } from './FormValidation';
 import {
@@ -14,18 +14,19 @@ import {
   TelephoneIcon,
   Title,
 } from 'components';
-import { selectContacts, selectEditedContact } from 'redux/contacts/selectors';
+
 import { updateContact } from 'redux/contacts/operations';
+import { useContacts } from 'hooks';
 
 export const EditContactForm = () => {
+  const { contacts, editedContact } = useContacts();
   const dispatch = useDispatch();
-  const contactList = useSelector(selectContacts);
-  const editedContact = useSelector(selectEditedContact);
+
   const initialName = editedContact.name;
   const initialNumber = editedContact.number;
 
   const onSubmit = formData => {
-    if (isAlreadyOnList(editedContact.id, contactList, formData)) {
+    if (isAlreadyOnList(editedContact.id, contacts, formData)) {
       return;
     }
     dispatch(updateContact(editedContact.id, formData));
@@ -51,7 +52,6 @@ export const EditContactForm = () => {
                 autoComplete="off"
                 type="text"
                 name="name"
-                // value={initialName}
                 required
               />
               <InputName>Contact name</InputName>
@@ -65,7 +65,6 @@ export const EditContactForm = () => {
                 autoComplete="off"
                 type="tel"
                 name="number"
-                // value={initialNumber}
                 required
               />
               <InputName>Phone number</InputName>

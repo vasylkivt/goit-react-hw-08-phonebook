@@ -1,16 +1,17 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { logout } from 'redux/auth/operations';
-import { selectUser } from 'redux/auth/selectors';
+
 import { WrapUserMenu } from './UserMenu.style';
 import { Link } from 'react-router-dom';
+import { useAuth } from 'hooks';
 
 export const UserMenu = () => {
   const dispatch = useDispatch();
-  const userName = useSelector(selectUser);
+  const { user } = useAuth();
 
   return (
     <WrapUserMenu>
-      <Link to="/profile">{userName.name}</Link>
+      <Link to="/profile">{user.name}</Link>
       <button onClick={() => dispatch(logout())}>Logout</button>
     </WrapUserMenu>
   );

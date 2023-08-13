@@ -1,5 +1,5 @@
 import {  lazy, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 
 import { Toaster } from 'react-hot-toast';
@@ -8,7 +8,8 @@ import { PrivateRoute, PublicRoute, SharedLayout } from 'components';
 import { toastOptions } from 'styles';
 
 import { refresh } from 'redux/auth/operations';
-import { selectIsRefreshing } from 'redux/auth/selectors';
+
+import { useAuth } from 'hooks';
 
 const Home = lazy(() => import('pages/Home'));
 const Contacts = lazy(() => import('pages/Contacts'));
@@ -19,8 +20,8 @@ const ErrorPage = lazy(() => import('pages/ErrorPage'));
 
 export const App = () => {
   const dispatch = useDispatch();
-  const isRefreshing = useSelector(selectIsRefreshing);
-
+  const { isRefreshing } = useAuth();
+ 
   useEffect(() => {
     dispatch(refresh());
   }, [dispatch]);
