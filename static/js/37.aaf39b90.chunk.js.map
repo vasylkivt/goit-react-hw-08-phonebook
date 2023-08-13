@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/37.aaf39b90.chunk.js","mappings":"iKAGA,UAHoB,WAClB,OAAOA,EAAAA,EAAAA,KAAA,OAAAC,SAAK,eACd,C","sources":["pages/UserProfile.jsx"],"sourcesContent":["const UserProfile = () => {\n  return <div>UserProfile</div>;\n};\nexport default UserProfile;\n"],"names":["_jsx","children"],"sourceRoot":""}
