@@ -6,7 +6,7 @@ export const Notification = styled.p`
   font-weight: 700;
   font-size: 22px;
   line-height: 1.6;
-  max-width: 260px;
+  max-width: ${({ $maxWidth }) => (!$maxWidth ? ' 260px' : $maxWidth)};
 
   text-align: ${({ $textAlign }) => (!$textAlign ? 'center' : $textAlign)};
   margin: ${({ $margin }) => (!$margin ? '0 auto' : $margin)};

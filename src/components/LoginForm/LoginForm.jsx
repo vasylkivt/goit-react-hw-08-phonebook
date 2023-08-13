@@ -1,4 +1,5 @@
 import { Formik } from 'formik';
+import { useDispatch } from 'react-redux';
 
 import {
   Button,
@@ -11,21 +12,11 @@ import {
   Title,
 } from 'components';
 
-import { useDispatch/* , useSelector */ } from 'react-redux';
-// import { useNavigate } from 'react-router-dom';
-// import { selectIsLoggedIn } from 'redux/auth/selectors';
 import { login } from 'redux/auth/operations';
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
-  // const isLoggedIn = useSelector(selectIsLoggedIn);
-
-
-  // if (isLoggedIn) {
-  //   return navigate('/contacts', { replace: true });
-   
-  // }
+  
   return (
     <Formik
       initialValues={{ email: '', password: '' }}

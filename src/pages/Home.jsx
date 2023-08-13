@@ -1,4 +1,4 @@
-export const Home = () => {
+  const Home = () => {
   return (
     <div>
       <h1>Lorem ipsum dolor sit amet consectetur</h1>
@@ -11,3 +11,5 @@ export const Home = () => {
     </div>
   );
 };
+
+export default Home

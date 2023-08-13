@@ -6,7 +6,6 @@ export const Section = styled.section`
   display: flex;
   gap: 20px;
   height: calc(100vh - 100px);
-  justify-content: center;
 `;
 
 export const Container = styled.div`
