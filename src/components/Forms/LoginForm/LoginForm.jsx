@@ -8,15 +8,17 @@ import {
   InputStyled,
   InputWrap,
   PersonIcon,
+  StyledLink,
   TelephoneIcon,
   Title,
+  Text,
 } from 'components';
 
 import { login } from 'redux/auth/operations';
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
-  
+
   return (
     <Formik
       initialValues={{ email: '', password: '' }}
@@ -36,6 +38,12 @@ export const LoginForm = () => {
           <InputStyled autoComplete="off" type="tel" name="password" required />
           <InputName>Password</InputName>
         </InputWrap>
+        <Text>
+          Don't have an account yet?{' '}
+          <StyledLink to="/register">
+            <u>Sign up.</u>
+          </StyledLink>
+        </Text>
 
         <Button type="submit">Login</Button>
       </FormStyled>

@@ -4,5 +4,6 @@ export const Section = styled.section`
   padding-bottom: 20px;
   display: flex;
   gap: 20px;
-  height: calc(100vh - 100px);
+  justify-content: center;
+  align-items: flex-start;
 `;

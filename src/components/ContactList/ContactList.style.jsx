@@ -4,7 +4,6 @@ export const ListWrap = styled.div`
   max-height: 550px;
   width: 420px;
   padding: 20px 50px;
-  overflow: auto;
 
   background: transparent;
   border: 2px solid rgba(255, 255, 255, 0.5);

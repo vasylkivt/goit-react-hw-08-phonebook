@@ -44,7 +44,7 @@ export const EditContactForm = () => {
         validationSchema={contactFormScheme}
       >
         {({ errors, touched }) => (
-          <FormStyled>
+          <FormStyled $position="absolute">
             <Title>Edit contact</Title>
             <InputWrap>
               <PersonIcon />

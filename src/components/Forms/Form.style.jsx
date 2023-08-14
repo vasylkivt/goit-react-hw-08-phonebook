@@ -2,9 +2,13 @@ import styled from 'styled-components';
 import { Field, Form } from 'formik';
 import { BsPerson } from 'react-icons/bs';
 import { AiOutlinePhone } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 
 export const FormStyled = styled(Form)`
-  position: relative;
+
+  position: ${({ $position }) => (!$position ? 'relative' : $position)};
+
+  width: 400px;
   padding: 50px;
   background: transparent;
   border: 2px solid rgba(255, 255, 255, 0.5);
@@ -19,7 +23,6 @@ export const FormStyled = styled(Form)`
 export const InputWrap = styled.div`
   position: relative;
 
-  width: 310px;
   border-bottom: 2px solid #fff;
 `;
 
@@ -35,7 +38,6 @@ export const InputName = styled.label`
 `;
 
 export const InputStyled = styled(Field)`
-  width: 100%;
   height: 50px;
   background: transparent;
   border: none;
@@ -49,6 +51,23 @@ export const InputStyled = styled(Field)`
     top: -5px;
     color: ${({ theme }) => theme.colors.accent};
   }
+`;
+
+export const Text = styled.p`
+  color: ${({ theme }) => theme.colors.white};
+
+  font-size: 16px;
+
+  line-height: 1.4;
+  font-weight: 400;
+`;
+export const StyledLink = styled(Link)`
+  color: ${({ theme }) => theme.colors.white};
+
+  font-size: 16px;
+
+  line-height: 1.4;
+  font-weight: 400;
 `;
 
 //// Form elements ==================================
