@@ -2,13 +2,14 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { List, ListWrap } from './ContactList.style';
-import { ContactItem, Filter, Notification } from 'components';
+import { ContactItem, Filter, MoreDetailsForm, Notification } from 'components';
 
 import { getAllContacts } from 'redux/contacts/operations';
 import { useAuth, useContacts, useFilter } from 'hooks';
 
 export const ContactList = () => {
-  const { contacts, loading, error } = useContacts();
+  const { contacts, loading, error, visibleEditContact } =
+    useContacts();
   const { visibleContacts } = useFilter();
   const { isLoggedIn } = useAuth();
 
@@ -29,7 +30,9 @@ export const ContactList = () => {
         {visibleContacts.map(contact => (
           <ContactItem contact={contact} key={contact.id} />
         ))}
+
       </List>
+        {visibleEditContact && <MoreDetailsForm />}
 
       {!loading && !isContactEmpty && isVisibleContactsEmpty && (
         <Notification>

@@ -2,7 +2,7 @@ import { Formik } from 'formik';
 import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { contactFormScheme, isAlreadyOnList } from './FormValidation';
+import { contactFormScheme, isAlreadyOnList } from '../RegisterForm/FormValidation';
 import {
   Button,
   FormStyled,

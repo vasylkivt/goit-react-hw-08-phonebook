@@ -1,18 +1,11 @@
-import { ContactForm, ContactList, EditContactForm } from 'components';
+import { ContactForm, ContactList } from 'components';
 
-import { useSelector } from 'react-redux';
-import { selectEditContact } from 'redux/contacts/selectors';
-
- const Contacts = () => {
-  const visibleEditContact = useSelector(selectEditContact);
-
+const Contacts = () => {
   return (
     <>
       <ContactForm />
 
       <ContactList />
-
-      {visibleEditContact && <EditContactForm />}
     </>
   );
 };

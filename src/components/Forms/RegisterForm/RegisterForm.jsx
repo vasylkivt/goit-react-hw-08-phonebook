@@ -7,8 +7,12 @@ import {
   InputStyled,
   InputWrap,
   PersonIcon,
-  TelephoneIcon,
+  StyledLink,
+
   Title,
+  Text,
+  PasswordIcon,
+  EMailIcon,
 } from 'components';
 import { useDispatch } from 'react-redux';
 
@@ -28,29 +32,35 @@ export const RegisterForm = () => {
       }}
     >
       <FormStyled>
-        <Title>Sing up</Title>
+        <Title>Sign up</Title>
         <InputWrap>
           <PersonIcon />
           <InputStyled autoComplete="off" type="text" name="name" required />
           <InputName>Name</InputName>
         </InputWrap>
         <InputWrap>
-          <TelephoneIcon />
+          <EMailIcon />
           <InputStyled autoComplete="off" type="email" name="email" required />
           <InputName>Email</InputName>
         </InputWrap>
         <InputWrap>
-          <TelephoneIcon />
+          <PasswordIcon />
           <InputStyled
             autoComplete="off"
-            type="text"
+            type="password"
             name="password"
             required
           />
           <InputName>Password</InputName>
         </InputWrap>
+        <Text>
+          Already have an account?{' '}
+          <StyledLink to="/login">
+            <u>Log in.</u>
+          </StyledLink>
+        </Text>
 
-        <Button type="submit">Sing up</Button>
+        <Button type="submit">Sign up</Button>
       </FormStyled>
     </Formik>
   );

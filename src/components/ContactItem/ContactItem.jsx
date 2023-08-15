@@ -1,31 +1,38 @@
 import PropTypes from 'prop-types';
 
-import { AiFillEdit, AiOutlineDelete } from 'react-icons/ai';
+import { BsInfo } from 'react-icons/bs';
+import { Item, Text, TextWrap, MoreDetails, ButtonDel } from './ContactItem.style';
 
-import { ButtonDel, Item, Text, TextWrap } from './ContactItem.style';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectLoading } from 'redux/contacts/selectors';
-import { deleteContact } from 'redux/contacts/operations';
-import { editContact } from 'redux/contacts/slice';
 
-export const ContactItem = ({ contact: { id, name, number } }) => {
+import { contactsOperations, contactsSlice } from 'redux/contacts';
+import { useContacts } from 'hooks';
+import { useDispatch } from 'react-redux';
+import { AiOutlineDelete } from 'react-icons/ai';
+
+export const ContactItem = ({ contact }) => {
   const dispatch = useDispatch();
-  const loading = useSelector(selectLoading);
+  
+  const { id, name } = contact;
+  const { loading } = useContacts();
 
   const handlerDeleteBtn = () => {
-    dispatch(deleteContact(id));
+    dispatch(contactsOperations.deleteContact(id));
   };
-  const handlerUpdateBtn = () => {
-    dispatch(editContact({ id, name, number }));
+
+  const handleInfoBtn = () => {
+    dispatch(contactsSlice.editContact(contact));
   };
 
   return (
     <>
       <Item>
+        <MoreDetails type="button" onClick={handleInfoBtn}>
+          <BsInfo />
+        </MoreDetails>
         <TextWrap>
           <Text>{name}</Text>
-          <Text>{number}</Text>
         </TextWrap>
+
         <ButtonDel
           disabled={loading && 'disabled'}
           onClick={handlerDeleteBtn}
@@ -33,13 +40,6 @@ export const ContactItem = ({ contact: { id, name, number } }) => {
         >
           <AiOutlineDelete />
         </ButtonDel>
-        <button
-          disabled={loading && 'disabled'}
-          onClick={handlerUpdateBtn}
-          type="button"
-        >
-          <AiFillEdit />
-        </button>
       </Item>
     </>
   );
@@ -47,6 +47,7 @@ export const ContactItem = ({ contact: { id, name, number } }) => {
 
 ContactItem.propTypes = {
   contact: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     number: PropTypes.string.isRequired,
   }).isRequired,

@@ -1,10 +1,15 @@
 import styled from 'styled-components';
 import { Field, Form } from 'formik';
 import { BsPerson } from 'react-icons/bs';
-import { AiOutlinePhone } from 'react-icons/ai';
+import { AiOutlineMail, AiOutlinePhone } from 'react-icons/ai';
+import { RiLockPasswordLine } from 'react-icons/ri';
+import { Link } from 'react-router-dom';
 
 export const FormStyled = styled(Form)`
-  position: relative;
+
+  position: ${({ $position }) => (!$position ? 'relative' : $position)};
+
+  width: 400px;
   padding: 50px;
   background: transparent;
   border: 2px solid rgba(255, 255, 255, 0.5);
@@ -19,7 +24,6 @@ export const FormStyled = styled(Form)`
 export const InputWrap = styled.div`
   position: relative;
 
-  width: 310px;
   border-bottom: 2px solid #fff;
 `;
 
@@ -32,15 +36,15 @@ export const InputName = styled.label`
   font-size: 1em;
   pointer-events: none;
   transition: 0.5s;
+  text-transform: capitalize;
 `;
 
 export const InputStyled = styled(Field)`
-  width: 100%;
   height: 50px;
   background: transparent;
   border: none;
   outline: none;
-
+ 
   padding: 0 35px 0 5px;
   color: #fff;
 
@@ -49,6 +53,24 @@ export const InputStyled = styled(Field)`
     top: -5px;
     color: ${({ theme }) => theme.colors.accent};
   }
+`;
+
+export const Text = styled.p`
+  color: ${({ theme }) => theme.colors.white};
+
+  font-size: 16px;
+
+  line-height: 1.4;
+  font-weight: 400;
+`;
+
+export const StyledLink = styled(Link)`
+  color: ${({ theme }) => theme.colors.white};
+
+  font-size: 16px;
+
+  line-height: 1.4;
+  font-weight: 400;
 `;
 
 //// Form elements ==================================
@@ -62,13 +84,33 @@ export const InvalidInput = styled.div`
 export const PersonIcon = styled(BsPerson)`
   fill: ${({ theme }) => theme.colors.accent};
   position: absolute;
-  right: 8px;
+  right: 5px;
   top: 20px;
+  width: 25px;
+  height: 25px;
 `;
 
 export const TelephoneIcon = styled(AiOutlinePhone)`
   fill: ${({ theme }) => theme.colors.accent};
   position: absolute;
-  right: 8px;
+  right: 5px;
   top: 20px;
+  width: 25px;
+  height: 25px;
+`;
+export const PasswordIcon = styled(RiLockPasswordLine)`
+  fill: ${({ theme }) => theme.colors.accent};
+  position: absolute;
+  right: 5px;
+  top: 20px;
+  width: 25px;
+  height: 25px;
+`;
+export const EMailIcon = styled(AiOutlineMail)`
+  fill: ${({ theme }) => theme.colors.accent};
+  position: absolute;
+  right: 5px;
+  top: 20px;
+  width: 25px;
+  height: 25px;
 `;

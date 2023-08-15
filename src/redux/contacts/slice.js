@@ -6,6 +6,9 @@ export const editContact = contact => ({
   type: 'contacts/editContact',
   payload: contact,
 });
+export const closeModal = () => ({
+  type: 'contacts/closeModal',
+});
 
 export const contactReducer = (
   state = {
@@ -13,14 +16,25 @@ export const contactReducer = (
     isLoading: false,
     error: null,
     visibleEditContact: false,
+
     editedContact: null,
   },
   action
 ) => {
   switch (action.type) {
+    case 'contacts/closeModal':
+     
+      return {
+        ...state,
+        items: [...state.items],
+        visibleEditContact: false,
+        editedContact: null,
+      };
+    
     case 'contacts/editContact':
       return {
         ...state,
+        items: [...state.items],
         visibleEditContact:
           action.payload.id === state.editedContact?.id ? false : true,
         editedContact:

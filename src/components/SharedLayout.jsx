@@ -1,4 +1,4 @@
-import { AppBar, Container } from 'components';
+import { AppBar, Container, Section } from 'components';
 import { Outlet } from 'react-router-dom';
 import { Suspense } from 'react';
 
@@ -8,9 +8,11 @@ export const SharedLayout = () => {
       <AppBar />
       <main>
         <Container>
-          <Suspense fallback={<div>Loading...</div>}>
-            <Outlet />
-          </Suspense>
+          <Section>
+            <Suspense fallback={<div>Loading...</div>}>
+              <Outlet />
+            </Suspense>
+          </Section>
         </Container>
       </main>
     </>
