@@ -1,28 +1,23 @@
-import { useContacts } from 'hooks';
+import { Formik } from 'formik';
+import { useCloseModalOnEscape, useContacts } from 'hooks';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+
 import { contactsOperations, contactsSlice } from 'redux/contacts';
-import { ButtonEdit, FormStyled, MoreDetailsWrap } from './MoreDetails.style';
-import { AiFillEdit } from 'react-icons/ai';
-import {
-  Button,
-  InputName,
-  InputStyled,
-  InputWrap,
-  InvalidInput,
-  PersonIcon,
-  TelephoneIcon,
-} from 'components';
+import { ButtonClose, FormStyled, MoreDetailsWrap } from './MoreDetails.style';
+import { Button, PersonIcon, TelephoneIcon } from 'components';
 import { contactFormScheme, isAlreadyOnList } from './FormValidation';
-import { Formik } from 'formik';
+import { GrFormClose } from 'react-icons/gr';
+import { ContactField } from './ContactField';
 
 export const MoreDetailsForm = () => {
   const [isEdit, setIsEdit] = useState(false);
-  console.log('isEdit:', isEdit);
+  const { editedContact, contacts } = useContacts();
   const dispatch = useDispatch();
-  const { loading, editedContact, contacts } = useContacts();
+  const initialName = editedContact.name;
+  const initialNumber = editedContact.number;
 
-  
+  useCloseModalOnEscape(dispatch);
 
   const onSubmit = formData => {
     if (isAlreadyOnList(editedContact.id, contacts, formData)) {
@@ -31,58 +26,48 @@ export const MoreDetailsForm = () => {
     dispatch(contactsOperations.updateContact(editedContact.id, formData));
   };
 
-  const initialName = editedContact.name;
-  const initialNumber = editedContact.number;
-
   return (
-    <MoreDetailsWrap>
-      <Formik
-        enableReinitialize
-        initialValues={{
-          name: initialName,
-          number: initialNumber,
-        }}
-        onSubmit={onSubmit}
-        validationSchema={contactFormScheme}
-      >
-        {({ errors, touched }) => (
-          <FormStyled>
-            <InputWrap>
-              <PersonIcon />
-              <InputStyled
-                disabled={!isEdit}
-                autoComplete="off"
-                type="text"
+    <>
+      <MoreDetailsWrap id="modal">
+        <Formik
+          enableReinitialize
+          initialValues={{
+            name: initialName,
+            number: initialNumber,
+          }}
+          onSubmit={onSubmit}
+          validationSchema={contactFormScheme}
+        >
+          {() => (
+            <FormStyled>
+              <ContactField
+                icon={<PersonIcon />}
                 name="name"
-                required
+                label="Contact name"
+                isEdit={isEdit}
+                setIsEdit={setIsEdit}
               />
-              {isEdit && <InputName>Contact name</InputName>}
-              {errors.name && touched.name && (
-                <InvalidInput>{errors.name}</InvalidInput>
-              )}
-            </InputWrap>
-            <InputWrap>
-              <TelephoneIcon />
-              <InputStyled
-                disabled={!isEdit}
-                autoComplete="off"
-                type="tel"
-                name="number"
-                required
-              />
-              {isEdit && <InputName>Phone number</InputName>}
-              {errors.number && touched.number && (
-                <InvalidInput>{errors.number}</InvalidInput>
-              )}
-            </InputWrap>
 
-            {isEdit && <Button type="submit">Edit contact</Button>}
-          </FormStyled>
-        )}
-      </Formik>
-      <ButtonEdit onClick={() => setIsEdit(prev => !prev)} type="button">
-        <AiFillEdit />
-      </ButtonEdit>
-    </MoreDetailsWrap>
+              <ContactField
+                icon={<TelephoneIcon />}
+                name="number"
+                label="Phone number"
+                isEdit={isEdit}
+                setIsEdit={setIsEdit}
+              />
+              {isEdit && <Button type="submit">Edit contact</Button>}
+            </FormStyled>
+          )}
+        </Formik>
+
+        <ButtonClose
+          id="editButton"
+          onClick={() => dispatch(contactsSlice.closeModal())}
+          type="button"
+        >
+          <GrFormClose />
+        </ButtonClose>
+      </MoreDetailsWrap>
+    </>
   );
 };

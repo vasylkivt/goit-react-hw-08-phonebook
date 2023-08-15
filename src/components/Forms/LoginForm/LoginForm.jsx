@@ -9,9 +9,9 @@ import {
   InputWrap,
   PersonIcon,
   StyledLink,
-  TelephoneIcon,
   Title,
   Text,
+  PasswordIcon,
 } from 'components';
 
 import { login } from 'redux/auth/operations';
@@ -34,8 +34,8 @@ export const LoginForm = () => {
           <InputName>Email</InputName>
         </InputWrap>
         <InputWrap>
-          <TelephoneIcon />
-          <InputStyled autoComplete="off" type="tel" name="password" required />
+          <PasswordIcon />
+          <InputStyled autoComplete="off" type="password" name="password" required />
           <InputName>Password</InputName>
         </InputWrap>
         <Text>

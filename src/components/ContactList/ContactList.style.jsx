@@ -4,6 +4,7 @@ export const ListWrap = styled.div`
   position: relative;
   max-height: 550px;
   width: 420px;
+  min-height: 420px;
   padding: 20px 50px;
 
   background: transparent;
@@ -18,7 +19,6 @@ export const ListWrap = styled.div`
 `;
 
 export const List = styled.ul`
-
   overflow: auto;
   display: flex;
   width: 100%;

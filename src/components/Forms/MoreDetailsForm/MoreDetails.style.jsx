@@ -18,16 +18,13 @@ export const MoreDetailsWrap = styled.div`
   border-radius: 10px;
   backdrop-filter: blur(15px);
 `;
+
 export const FormStyled = styled(Form)`
   z-index: 2;
 
   display: flex;
   gap: 35px;
   flex-direction: column;
-`;
-
-export const Text = styled.p`
-  color: ${({ theme }) => theme.colors.white};
 `;
 
 export const Button = styled.button`
@@ -57,10 +54,20 @@ export const Button = styled.button`
 
 export const ButtonEdit = styled(Button)`
   position: absolute;
-  left: 10px;
-  top: 10px;
+  left: -45px;
+  top: 13px;
   &:hover {
     background: ${({ theme }) => theme.colors.yellow};
+  }
+  margin-left: auto;
+`;
+export const ButtonClose = styled(Button)`
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  padding: 5px 5px;
+  &:hover {
+    background: ${({ theme }) => theme.colors.red};
   }
   margin-left: auto;
 `;

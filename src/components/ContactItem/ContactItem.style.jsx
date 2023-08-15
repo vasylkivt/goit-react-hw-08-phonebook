@@ -18,6 +18,7 @@ export const TextWrap = styled.div`
 `;
 
 export const Text = styled.p`
+text-transform: capitalize;
   color: ${({ theme }) => theme.colors.white};
 `;
 

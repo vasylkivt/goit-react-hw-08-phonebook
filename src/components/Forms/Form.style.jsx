@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import { Field, Form } from 'formik';
 import { BsPerson } from 'react-icons/bs';
-import { AiOutlinePhone } from 'react-icons/ai';
+import { AiOutlineMail, AiOutlinePhone } from 'react-icons/ai';
+import { RiLockPasswordLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 
 export const FormStyled = styled(Form)`
@@ -35,6 +36,7 @@ export const InputName = styled.label`
   font-size: 1em;
   pointer-events: none;
   transition: 0.5s;
+  text-transform: capitalize;
 `;
 
 export const InputStyled = styled(Field)`
@@ -42,7 +44,7 @@ export const InputStyled = styled(Field)`
   background: transparent;
   border: none;
   outline: none;
-
+ 
   padding: 0 35px 0 5px;
   color: #fff;
 
@@ -61,6 +63,7 @@ export const Text = styled.p`
   line-height: 1.4;
   font-weight: 400;
 `;
+
 export const StyledLink = styled(Link)`
   color: ${({ theme }) => theme.colors.white};
 
@@ -81,13 +84,33 @@ export const InvalidInput = styled.div`
 export const PersonIcon = styled(BsPerson)`
   fill: ${({ theme }) => theme.colors.accent};
   position: absolute;
-  right: 8px;
+  right: 5px;
   top: 20px;
+  width: 25px;
+  height: 25px;
 `;
 
 export const TelephoneIcon = styled(AiOutlinePhone)`
   fill: ${({ theme }) => theme.colors.accent};
   position: absolute;
-  right: 8px;
+  right: 5px;
   top: 20px;
+  width: 25px;
+  height: 25px;
+`;
+export const PasswordIcon = styled(RiLockPasswordLine)`
+  fill: ${({ theme }) => theme.colors.accent};
+  position: absolute;
+  right: 5px;
+  top: 20px;
+  width: 25px;
+  height: 25px;
+`;
+export const EMailIcon = styled(AiOutlineMail)`
+  fill: ${({ theme }) => theme.colors.accent};
+  position: absolute;
+  right: 5px;
+  top: 20px;
+  width: 25px;
+  height: 25px;
 `;

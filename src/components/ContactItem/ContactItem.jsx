@@ -11,9 +11,8 @@ import { AiOutlineDelete } from 'react-icons/ai';
 
 export const ContactItem = ({ contact }) => {
   const dispatch = useDispatch();
-  const { id, name, number } = contact;
-
-
+  
+  const { id, name } = contact;
   const { loading } = useContacts();
 
   const handlerDeleteBtn = () => {
@@ -21,7 +20,7 @@ export const ContactItem = ({ contact }) => {
   };
 
   const handleInfoBtn = () => {
-    dispatch(contactsSlice.editContact({ id, name, number }));
+    dispatch(contactsSlice.editContact(contact));
   };
 
   return (
@@ -32,7 +31,6 @@ export const ContactItem = ({ contact }) => {
         </MoreDetails>
         <TextWrap>
           <Text>{name}</Text>
-          {/* <Text>{number}</Text> */}
         </TextWrap>
 
         <ButtonDel

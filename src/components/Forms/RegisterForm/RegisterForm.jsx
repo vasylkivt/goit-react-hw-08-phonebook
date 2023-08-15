@@ -8,9 +8,11 @@ import {
   InputWrap,
   PersonIcon,
   StyledLink,
-  TelephoneIcon,
+
   Title,
   Text,
+  PasswordIcon,
+  EMailIcon,
 } from 'components';
 import { useDispatch } from 'react-redux';
 
@@ -37,15 +39,15 @@ export const RegisterForm = () => {
           <InputName>Name</InputName>
         </InputWrap>
         <InputWrap>
-          <TelephoneIcon />
+          <EMailIcon />
           <InputStyled autoComplete="off" type="email" name="email" required />
           <InputName>Email</InputName>
         </InputWrap>
         <InputWrap>
-          <TelephoneIcon />
+          <PasswordIcon />
           <InputStyled
             autoComplete="off"
-            type="text"
+            type="password"
             name="password"
             required
           />
