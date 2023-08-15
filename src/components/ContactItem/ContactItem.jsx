@@ -1,84 +1,55 @@
 import PropTypes from 'prop-types';
 
-import { AiFillEdit, AiOutlineDelete } from 'react-icons/ai';
 import { BsInfo } from 'react-icons/bs';
-import {
-  ButtonDel,
-  ButtonEdit,
-  Item,
-  Text,
-  TextWrap,
-  MoreDetails,
-  MoreDetailsWrap,
-} from './ContactItem.style';
-import { useDispatch, useSelector } from 'react-redux';
+import { Item, Text, TextWrap, MoreDetails, ButtonDel } from './ContactItem.style';
 
-import { deleteContact } from 'redux/contacts/operations';
-import { editContact } from 'redux/contacts/slice';
+
+import { contactsOperations, contactsSlice } from 'redux/contacts';
 import { useContacts } from 'hooks';
-import { useState } from 'react';
-import { EditContactForm } from 'components';
-import { selectEditContact } from 'redux/contacts/selectors';
+import { useDispatch } from 'react-redux';
+import { AiOutlineDelete } from 'react-icons/ai';
 
-export const ContactItem = ({ contact: { id, name, number } }) => {
-  const [visibleMoreDetails, setVisibleMoreDetails] = useState(false);
-  // const [visibleEditContact, setVisibleEditContact] = useState(false);
-    const visibleEditContact = useSelector(selectEditContact);
+export const ContactItem = ({ contact }) => {
   const dispatch = useDispatch();
+  const { id, name, number } = contact;
+
+
   const { loading } = useContacts();
 
   const handlerDeleteBtn = () => {
-    dispatch(deleteContact(id));
+    dispatch(contactsOperations.deleteContact(id));
   };
-  const handlerUpdateBtn = () => {
-  
-    dispatch(editContact({ id, name, number }));
+
+  const handleInfoBtn = () => {
+    dispatch(contactsSlice.editContact({ id, name, number }));
   };
 
   return (
     <>
       <Item>
-        <TextWrap>
-          <Text>{name}</Text>
-          <Text>{number}</Text>
-        </TextWrap>
-        {visibleMoreDetails && (
-          <MoreDetailsWrap>
-            <div>
-              <Text>{name}</Text>
-              <Text>{number}</Text>
-            </div>
-            <ButtonEdit
-              disabled={loading && 'disabled'}
-              onClick={handlerUpdateBtn}
-              type="button"
-            >
-              <AiFillEdit />
-            </ButtonEdit>
-
-            <ButtonDel
-              disabled={loading && 'disabled'}
-              onClick={handlerDeleteBtn}
-              type="button"
-            >
-              <AiOutlineDelete />
-            </ButtonDel>
-          </MoreDetailsWrap>
-        )}
-        <MoreDetails
-          type="button"
-          onClick={() => setVisibleMoreDetails(prev => !prev)}
-        >
+        <MoreDetails type="button" onClick={handleInfoBtn}>
           <BsInfo />
         </MoreDetails>
+        <TextWrap>
+          <Text>{name}</Text>
+          {/* <Text>{number}</Text> */}
+        </TextWrap>
+
+        <ButtonDel
+          disabled={loading && 'disabled'}
+          onClick={handlerDeleteBtn}
+          type="button"
+        >
+          <AiOutlineDelete />
+        </ButtonDel>
       </Item>
-        {visibleEditContact && <EditContactForm />}
     </>
   );
 };
 
 ContactItem.propTypes = {
   contact: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     number: PropTypes.string.isRequired,
   }).isRequired,

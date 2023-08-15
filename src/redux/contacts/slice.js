@@ -13,6 +13,7 @@ export const contactReducer = (
     isLoading: false,
     error: null,
     visibleEditContact: false,
+
     editedContact: null,
   },
   action
@@ -25,7 +26,7 @@ export const contactReducer = (
           action.payload.id === state.editedContact?.id ? false : true,
         editedContact:
           action.payload.id === state.editedContact?.id ? null : action.payload,
-      };
+      };;
 
     case 'contacts/getAllContacts.pending':
       return {

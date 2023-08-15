@@ -15,9 +15,9 @@ export * from 'components/ContactList/ContactList';
 export * from 'components/ContactItem/ContactItem';
 
 export * from 'components/Forms/ContactForm/ContactForm';
-export * from 'components/Forms/EditContactForm/EditContactForm';
 export * from 'components/Forms/LoginForm/LoginForm';
 export * from 'components/Forms/RegisterForm/RegisterForm';
+export * from 'components/Forms/MoreDetailsForm/MoreDetailsForm';
 
 export * from 'components/StyleComponents/Section.style';
 export * from 'components/StyleComponents/Container.style';

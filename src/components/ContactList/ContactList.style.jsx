@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const ListWrap = styled.div`
+  position: relative;
   max-height: 550px;
   width: 420px;
   padding: 20px 50px;
@@ -17,6 +18,7 @@ export const ListWrap = styled.div`
 `;
 
 export const List = styled.ul`
+
   overflow: auto;
   display: flex;
   width: 100%;

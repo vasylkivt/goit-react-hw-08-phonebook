@@ -1,20 +1,29 @@
 import styled from 'styled-components';
-export const Item = styled.li`
-  display: flex;
-  position: relative;
-  padding: 4px 10px;
+import { Form } from 'formik';
 
-  align-items: center;
-  border-radius: 6px;
-  box-shadow: 0 0 1px 0 ${({ theme }) => theme.colors.accent};
-  background-color: rgba(0, 0, 0, 0.105);
+export const MoreDetailsWrap = styled.div`
+  position: absolute;
+  min-height: 100px;
+  top: 120px;
+  right: 20px;
+  z-index: 2;
+  width: 70%;
+  padding: 30px 30px 30px 60px;
+  display: flex;
+  gap: 35px;
+  flex-direction: column;
+
+  background: ${({ theme }) => theme.colors.black}90;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  backdrop-filter: blur(15px);
 `;
+export const FormStyled = styled(Form)`
+  z-index: 2;
 
-export const TextWrap = styled.div`
   display: flex;
-  gap: 10px;
-  overflow: hidden;
-  max-width: 200px;
+  gap: 35px;
+  flex-direction: column;
 `;
 
 export const Text = styled.p`
@@ -46,16 +55,12 @@ export const Button = styled.button`
   }
 `;
 
-export const ButtonDel = styled(Button)`
+export const ButtonEdit = styled(Button)`
+  position: absolute;
+  left: 10px;
+  top: 10px;
   &:hover {
-    background: ${({ theme }) => theme.colors.red};
+    background: ${({ theme }) => theme.colors.yellow};
   }
   margin-left: auto;
-`;
-
-export const MoreDetails = styled(Button)`
-  &:hover {
-    background: ${({ theme }) => theme.colors.green};
-  }
-margin-right: 10px;
 `;

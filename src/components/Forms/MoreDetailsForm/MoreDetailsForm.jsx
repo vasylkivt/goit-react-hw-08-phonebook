@@ -1,39 +1,41 @@
-import { Formik } from 'formik';
-
+import { useContacts } from 'hooks';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-
-import { contactFormScheme, isAlreadyOnList } from './FormValidation';
+import { contactsOperations, contactsSlice } from 'redux/contacts';
+import { ButtonEdit, FormStyled, MoreDetailsWrap } from './MoreDetails.style';
+import { AiFillEdit } from 'react-icons/ai';
 import {
   Button,
-  FormStyled,
   InputName,
   InputStyled,
   InputWrap,
   InvalidInput,
   PersonIcon,
   TelephoneIcon,
-  Title,
 } from 'components';
+import { contactFormScheme, isAlreadyOnList } from './FormValidation';
+import { Formik } from 'formik';
 
-import { updateContact } from 'redux/contacts/operations';
-import { useContacts } from 'hooks';
-
-export const EditContactForm = () => {
-  const { contacts, editedContact } = useContacts();
+export const MoreDetailsForm = () => {
+  const [isEdit, setIsEdit] = useState(false);
+  console.log('isEdit:', isEdit);
   const dispatch = useDispatch();
+  const { loading, editedContact, contacts } = useContacts();
 
-  const initialName = editedContact.name;
-  const initialNumber = editedContact.number;
+  
 
   const onSubmit = formData => {
     if (isAlreadyOnList(editedContact.id, contacts, formData)) {
       return;
     }
-    dispatch(updateContact(editedContact.id, formData));
+    dispatch(contactsOperations.updateContact(editedContact.id, formData));
   };
 
+  const initialName = editedContact.name;
+  const initialNumber = editedContact.number;
+
   return (
-    <>
+    <MoreDetailsWrap>
       <Formik
         enableReinitialize
         initialValues={{
@@ -44,17 +46,17 @@ export const EditContactForm = () => {
         validationSchema={contactFormScheme}
       >
         {({ errors, touched }) => (
-          <FormStyled $position="absolute">
-            <Title>Edit contact</Title>
+          <FormStyled>
             <InputWrap>
               <PersonIcon />
               <InputStyled
+                disabled={!isEdit}
                 autoComplete="off"
                 type="text"
                 name="name"
                 required
               />
-              <InputName>Contact name</InputName>
+              {isEdit && <InputName>Contact name</InputName>}
               {errors.name && touched.name && (
                 <InvalidInput>{errors.name}</InvalidInput>
               )}
@@ -62,21 +64,25 @@ export const EditContactForm = () => {
             <InputWrap>
               <TelephoneIcon />
               <InputStyled
+                disabled={!isEdit}
                 autoComplete="off"
                 type="tel"
                 name="number"
                 required
               />
-              <InputName>Phone number</InputName>
+              {isEdit && <InputName>Phone number</InputName>}
               {errors.number && touched.number && (
                 <InvalidInput>{errors.number}</InvalidInput>
               )}
             </InputWrap>
 
-            <Button type="submit">Edit contact</Button>
+            {isEdit && <Button type="submit">Edit contact</Button>}
           </FormStyled>
         )}
       </Formik>
-    </>
+      <ButtonEdit onClick={() => setIsEdit(prev => !prev)} type="button">
+        <AiFillEdit />
+      </ButtonEdit>
+    </MoreDetailsWrap>
   );
 };
