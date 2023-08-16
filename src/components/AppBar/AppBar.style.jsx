@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 export const NavWrap = styled.div`
   display: flex;
   justify-content: space-between;
@@ -14,13 +15,8 @@ export const Wrap = styled.div`
 `;
 
 export const Header = styled.header`
-
-
- 
   background: transparent;
   border: 2px solid rgba(255, 255, 255, 0.5);
   border-radius: 2px;
   backdrop-filter: blur(15px);
 `;
-
-

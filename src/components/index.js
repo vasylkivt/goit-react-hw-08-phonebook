@@ -20,6 +20,7 @@ export * from 'components/Forms/RegisterForm/RegisterForm';
 export * from 'components/Forms/MoreDetailsForm/MoreDetailsForm';
 
 export * from 'components/StyleComponents/Section.style';
+export * from 'components/StyleComponents/Loader.style';
 export * from 'components/StyleComponents/Container.style';
 export * from 'components/StyleComponents/Buttons.style';
 export * from 'components/StyleComponents/Title.style';

@@ -26,39 +26,43 @@ export const App = () => {
   }, [dispatch]);
 
   return (
-    !isRefreshing && (
-      <>
-        <Routes>
-          <Route path="/" element={<SharedLayout />}>
-            <Route index element={<Home />} />
+    <>
+      {!isRefreshing && (
+        <>
+          <Routes>
+            <Route path="/" element={<SharedLayout />}>
+              <Route index element={<Home />} />
 
-            <Route
-              path="/contacts"
-              element={
-                <PrivateRoute component={Contacts} redirectTo="/login" />
-              }
-            />
-            <Route
-              path="/profile"
-              element={
-                <PrivateRoute component={UserProfile} redirectTo="/login" />
-              }
-            />
-            <Route
-              path="/login"
-              element={<PublicRoute component={Login} redirectTo="/contacts" />}
-            />
-            <Route
-              path="/register"
-              element={
-                <PublicRoute component={Register} redirectTo="/contacts" />
-              }
-            />
-            <Route path="*" element={<ErrorPage />} />
-          </Route>
-        </Routes>
-        <Toaster toastOptions={toastOptions} />
-      </>
-    )
+              <Route
+                path="/contacts"
+                element={
+                  <PrivateRoute component={Contacts} redirectTo="/login" />
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <PrivateRoute component={UserProfile} redirectTo="/login" />
+                }
+              />
+              <Route
+                path="/login"
+                element={
+                  <PublicRoute component={Login} redirectTo="/contacts" />
+                }
+              />
+              <Route
+                path="/register"
+                element={
+                  <PublicRoute component={Register} redirectTo="/contacts" />
+                }
+              />
+              <Route path="*" element={<ErrorPage />} />
+            </Route>
+          </Routes>
+          <Toaster toastOptions={toastOptions} />
+        </>
+      )}
+    </>
   );
 };

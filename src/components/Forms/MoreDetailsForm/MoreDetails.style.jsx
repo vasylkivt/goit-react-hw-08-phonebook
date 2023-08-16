@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Form } from 'formik';
+import { Field, Form } from 'formik';
 
 export const MoreDetailsWrap = styled.div`
   position: absolute;
@@ -25,6 +25,23 @@ export const FormStyled = styled(Form)`
   display: flex;
   gap: 35px;
   flex-direction: column;
+`;
+
+export const InputStyled = styled(Field)`
+  height: 50px;
+  background: transparent;
+  border: none;
+  outline: none;
+  text-transform: capitalize;
+
+  padding: 0 35px 0 5px;
+  color: #fff;
+
+  &:focus ~ label,
+  &:valid ~ label {
+    top: -5px;
+    color: ${({ theme }) => theme.colors.accent};
+  }
 `;
 
 export const Button = styled.button`

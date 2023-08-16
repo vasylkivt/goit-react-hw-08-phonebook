@@ -6,7 +6,6 @@ import { RiLockPasswordLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 
 export const FormStyled = styled(Form)`
-
   position: ${({ $position }) => (!$position ? 'relative' : $position)};
 
   width: 400px;
@@ -44,7 +43,7 @@ export const InputStyled = styled(Field)`
   background: transparent;
   border: none;
   outline: none;
- 
+
   padding: 0 35px 0 5px;
   color: #fff;
 

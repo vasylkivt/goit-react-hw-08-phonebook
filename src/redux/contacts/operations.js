@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toastMessage } from 'utils/toast';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
@@ -41,7 +42,8 @@ export const addContact = contact => async dispatch => {
   try {
     dispatch(addContactProgress());
     const { data } = await axios.post('/contacts', contact);
-
+    toastMessage.add(contact);
+    
     dispatch(addContactSuccess(data));
   } catch (error) {
     dispatch(addContactError(error));
@@ -60,16 +62,18 @@ const deleteContactError = () => ({
   type: 'contact/deleteContact.rejected',
 });
 
-export const deleteContact = id => async dispatch => {
-  try {
-    dispatch(deleteContactProgress());
-    const { data } = await axios.delete(`/contacts/${id}`);
-
-    dispatch(deleteContactSuccess(data));
-  } catch (error) {
-    dispatch(deleteContactError(error));
-  }
-};
+export const deleteContact =
+  ({ id, name }) =>
+  async dispatch => {
+    try {
+      dispatch(deleteContactProgress());
+      const { data } = await axios.delete(`/contacts/${id}`);
+      toastMessage.remove(name);
+      dispatch(deleteContactSuccess(data));
+    } catch (error) {
+      dispatch(deleteContactError(error));
+    }
+  };
 
 //! update an existing contact
 const updateContactProgress = () => ({
@@ -83,10 +87,14 @@ const updateContactError = () => ({
   type: 'contact/updateContact.rejected',
 });
 
-export const updateContact = (id, userData) => async dispatch => {
+export const updateContact = (editedContact, userData) => async dispatch => {
   try {
     dispatch(updateContactProgress());
-    const { data } = await axios.patch(`/contacts/${id}`, userData);
+    const { data } = await axios.patch(
+      `/contacts/${editedContact.id}`,
+      userData
+    );
+    toastMessage.update(editedContact, userData);
     dispatch(updateContactSuccess(data));
   } catch (error) {
     dispatch(updateContactError(error));

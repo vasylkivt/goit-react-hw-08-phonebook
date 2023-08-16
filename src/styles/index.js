@@ -1,3 +1,3 @@
 export * from 'styles/GlobalStyles';
 export * from 'styles/theme';
-export * from 'styles/toastOption';
+export * from 'utils/toast/toastOption';

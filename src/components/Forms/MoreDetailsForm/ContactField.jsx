@@ -1,6 +1,6 @@
 import { ErrorMessage } from 'formik';
-import { InputName, InputStyled, InputWrap, InvalidInput } from '../Form.style';
-import { ButtonEdit } from './MoreDetails.style';
+import { InputName,  InputWrap, InvalidInput } from '../Form.style';
+import { ButtonEdit, InputStyled } from './MoreDetails.style';
 import { AiFillEdit } from 'react-icons/ai';
 
 export const ContactField = ({ icon, name, label, isEdit, setIsEdit }) => (

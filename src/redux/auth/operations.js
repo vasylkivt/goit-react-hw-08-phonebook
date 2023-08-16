@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { store } from 'redux/store';
+import { toastMessage } from 'utils/toast';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
@@ -20,9 +21,10 @@ export const register = regData => async dispatch => {
   try {
     dispatch(registerPen());
     const { data } = await axios.post('/users/signup', regData);
-
+    toastMessage.registerSuccess(data);
     dispatch(registerFul(data));
   } catch (error) {
+    toastMessage.registerError(error);
     dispatch(registerRej(error));
   }
 };
@@ -63,7 +65,7 @@ export const logout = () => async dispatch => {
 //!  action refresh
 
 const refreshPen = () => ({ type: 'auth/refresh.pen' });
-const refreshFul = (data) => ({ type: 'auth/refresh.ful',payload: data });
+const refreshFul = data => ({ type: 'auth/refresh.ful', payload: data });
 const refreshRej = () => ({ type: 'auth/refresh.rej' });
 
 export const refresh = () => async dispatch => {
@@ -81,8 +83,7 @@ export const refresh = () => async dispatch => {
   try {
     dispatch(refreshPen());
     const { data } = await axios.get('/users/current');
-    
-    
+
     dispatch(refreshFul(data));
   } catch (error) {
     dispatch(refreshRej(error));

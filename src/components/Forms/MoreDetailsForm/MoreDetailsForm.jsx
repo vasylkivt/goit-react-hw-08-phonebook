@@ -10,6 +10,7 @@ import { contactFormScheme, isAlreadyOnList } from './FormValidation';
 import { GrFormClose } from 'react-icons/gr';
 import { ContactField } from './ContactField';
 
+
 export const MoreDetailsForm = () => {
   const [isEdit, setIsEdit] = useState(false);
   const { editedContact, contacts } = useContacts();
@@ -20,10 +21,20 @@ export const MoreDetailsForm = () => {
   useCloseModalOnEscape(dispatch);
 
   const onSubmit = formData => {
-    if (isAlreadyOnList(editedContact.id, contacts, formData)) {
+    const { name, number } = formData;
+    const updateData = {};
+
+
+    if (isAlreadyOnList(editedContact.id, contacts, formData)) return;
+    if (name !== editedContact.name) updateData.name = name;
+    if (number !== editedContact.number) updateData.number = number;
+    
+    if (Object.keys(updateData).length === 0) {
+      dispatch(contactsSlice.closeModal());
       return;
     }
-    dispatch(contactsOperations.updateContact(editedContact.id, formData));
+
+    dispatch(contactsOperations.updateContact(editedContact, updateData));
   };
 
   return (
