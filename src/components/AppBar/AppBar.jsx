@@ -12,9 +12,7 @@ export const AppBar = () => {
           <Wrap>
             <MainNav />
           </Wrap>
-          <Wrap>
-            {!isLoggedIn ? <AuthNav /> : <UserMenu />}
-          </Wrap>
+          <Wrap>{!isLoggedIn ? <AuthNav /> : <UserMenu />}</Wrap>
         </NavWrap>
       </Container>
     </Header>
