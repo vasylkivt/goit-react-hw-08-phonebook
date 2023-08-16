@@ -5,10 +5,10 @@ import { Route, Routes } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 
 import { PrivateRoute, PublicRoute, SharedLayout } from 'components';
-import { toastOptions } from 'styles';
 
 import { refresh } from 'redux/auth/operations';
 import { useAuth } from 'hooks';
+import { toastOptions } from 'utils/toast';
 
 const Home = lazy(() => import('pages/Home'));
 const Contacts = lazy(() => import('pages/Contacts'));
