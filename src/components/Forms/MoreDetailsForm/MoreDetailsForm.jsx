@@ -3,13 +3,12 @@ import { useCloseModalOnEscape, useContacts } from 'hooks';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { contactsOperations, contactsSlice } from 'redux/contacts';
+import { contactsOperations, contactsActions } from 'redux/contacts';
 import { ButtonClose, FormStyled, MoreDetailsWrap } from './MoreDetails.style';
 import { Button, PersonIcon, TelephoneIcon } from 'components';
 import { contactFormScheme, isAlreadyOnList } from './FormValidation';
 import { GrFormClose } from 'react-icons/gr';
 import { ContactField } from './ContactField';
-
 
 export const MoreDetailsForm = () => {
   const [isEdit, setIsEdit] = useState(false);
@@ -24,13 +23,12 @@ export const MoreDetailsForm = () => {
     const { name, number } = formData;
     const updateData = {};
 
-
     if (isAlreadyOnList(editedContact.id, contacts, formData)) return;
     if (name !== editedContact.name) updateData.name = name;
     if (number !== editedContact.number) updateData.number = number;
-    
+
     if (Object.keys(updateData).length === 0) {
-      dispatch(contactsSlice.closeModal());
+      dispatch(contactsActions.closeModal());
       return;
     }
 
@@ -73,7 +71,7 @@ export const MoreDetailsForm = () => {
 
         <ButtonClose
           id="editButton"
-          onClick={() => dispatch(contactsSlice.closeModal())}
+          onClick={() => dispatch(contactsActions.closeModal())}
           type="button"
         >
           <GrFormClose />

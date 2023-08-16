@@ -1,10 +1,10 @@
 import { useAuth } from 'hooks';
 
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 export const PublicRoute = ({ component: Component, redirectTo }) => {
-  const location = useLocation();
-  console.log('location:', location);
+  // const location = useLocation();
+
   const { isLoggedIn } = useAuth();
 
   return isLoggedIn ? <Navigate to={redirectTo} replace /> : <Component />;

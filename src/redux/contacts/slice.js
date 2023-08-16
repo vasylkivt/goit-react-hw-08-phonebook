@@ -2,14 +2,6 @@ import axios from 'axios';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
-export const editContact = contact => ({
-  type: 'contacts/editContact',
-  payload: contact,
-});
-export const closeModal = () => ({
-  type: 'contacts/closeModal',
-});
-
 export const contactReducer = (
   state = {
     items: [],
@@ -23,14 +15,13 @@ export const contactReducer = (
 ) => {
   switch (action.type) {
     case 'contacts/closeModal':
-     
       return {
         ...state,
         items: [...state.items],
         visibleEditContact: false,
         editedContact: null,
       };
-    
+
     case 'contacts/editContact':
       return {
         ...state,

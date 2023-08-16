@@ -8,15 +8,11 @@ import { authReducer } from './auth/slice';
 import { contactReducer } from './contacts/slice';
 import { filterReducer } from './filter/slice';
 
-
-
 const persistConfig = {
   key: 'auth',
   storage,
   whitelist: ['token'],
 };
-
-
 
 const composeEnhancers = compose(applyMiddleware(thunk), devToolsEnhancer());
 
@@ -28,16 +24,5 @@ export const rootReducer = combineReducers({
   contacts: contactReducer,
 });
 
-
-  export const store = createStore(rootReducer, composeEnhancers);
-  export const persistor = persistStore(store);
-
-
-
-
-
-
-
-
-
-
+export const store = createStore(rootReducer, composeEnhancers);
+export const persistor = persistStore(store);
