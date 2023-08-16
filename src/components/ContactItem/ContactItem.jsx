@@ -16,7 +16,7 @@ export const ContactItem = ({ contact }) => {
   const { loading } = useContacts();
 
   const handlerDeleteBtn = () => {
-    dispatch(contactsOperations.deleteContact(id));
+    dispatch(contactsOperations.deleteContact({ id, name }));
   };
 
   const handleInfoBtn = () => {
