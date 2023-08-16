@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 
 import {
   selectContacts,
-  selectEditContact,
+  selectShowModal,
   selectEditedContact,
   selectError,
   selectLoading,
@@ -13,14 +13,14 @@ export const useContacts = () => {
   const loading = useSelector(selectLoading);
   const error = useSelector(selectError);
 
-  const visibleEditContact = useSelector(selectEditContact);
+  const showModal = useSelector(selectShowModal);
   const editedContact = useSelector(selectEditedContact);
 
   return {
     contacts,
     loading,
     error,
-visibleEditContact,
+    showModal,
     editedContact,
   };
 };

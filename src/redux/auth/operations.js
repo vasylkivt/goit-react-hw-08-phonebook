@@ -1,4 +1,3 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { store } from 'redux/store';
 import { toastMessage } from 'utils/toast';
@@ -14,22 +13,6 @@ const clearAuthHeader = () => {
 };
 
 //! action register
-
-// export const register = createAsyncThunk(
-//   'auth/register',
-//   async (credentials, thunkAPI) => {
-//     try {
-//       const { data } = await axios.post('/users/signup', credentials);
-
-//       setAuthHeader(data.token);
-//       toastMessage.registerSuccess(data);
-//       return data;
-//     } catch (error) {
-//       toastMessage.registerError(error);
-//       return thunkAPI.rejectWithValue(error.message);
-//     }
-//   }
-// );
 
 const registerPen = () => ({ type: 'auth/register.pen' });
 const registerFul = data => ({ type: 'auth/register.ful', payload: data });

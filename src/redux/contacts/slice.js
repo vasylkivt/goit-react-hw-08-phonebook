@@ -1,135 +1,82 @@
-import axios from 'axios';
+import { createSlice } from '@reduxjs/toolkit';
 
-axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
+import {
+  addContact,
+  deleteContact,
+  getAllContacts,
+  updateContact,
+} from './operations';
 
-export const contactReducer = (
-  state = {
-    items: [],
-    isLoading: false,
-    error: null,
-    visibleEditContact: false,
-
-    editedContact: null,
-  },
-  action
-) => {
-  switch (action.type) {
-    case 'contacts/closeModal':
-      return {
-        ...state,
-        items: [...state.items],
-        visibleEditContact: false,
-        editedContact: null,
-      };
-
-    case 'contacts/editContact':
-      return {
-        ...state,
-        items: [...state.items],
-        visibleEditContact:
-          action.payload.id === state.editedContact?.id ? false : true,
-        editedContact:
-          action.payload.id === state.editedContact?.id ? null : action.payload,
-      };
-
-    case 'contacts/getAllContacts.pending':
-      return {
-        ...state,
-        items: [],
-        isLoading: true,
-        error: null,
-      };
-    case 'contacts/getAllContacts.fulfilled':
-      return {
-        ...state,
-        items: [...action.payload],
-        isLoading: false,
-        error: null,
-      };
-    case 'contacts/getAllContacts.rejected':
-      return {
-        ...state,
-        items: [],
-        isLoading: false,
-        error: action.payload,
-      };
-
-    //!add
-    case 'contact/addContact.pending':
-      return {
-        ...state,
-        items: [...state.items],
-        isLoading: true,
-        error: null,
-      };
-    case 'contact/addContact.fulfilled':
-      return {
-        ...state,
-        items: [action.payload, ...state.items],
-        isLoading: false,
-        error: null,
-      };
-    case 'contact/addContact.rejected':
-      return {
-        ...state,
-        items: [...state.items],
-        isLoading: false,
-        error: action.payload,
-      };
-
-    //! del
-    case 'contact/deleteContact.pending':
-      return {
-        ...state,
-        items: [...state.items],
-        isLoading: true,
-        error: null,
-      };
-    case 'contact/deleteContact.fulfilled':
-      return {
-        ...state,
-        items: state.items.filter(item => item.id !== action.payload.id),
-
-        isLoading: false,
-        error: null,
-      };
-    case 'contact/deleteContact.rejected':
-      return {
-        ...state,
-        items: [...state.items],
-        isLoading: false,
-        error: action.payload,
-      };
-
-    //! update
-    case 'contact/updateContact.pending':
-      return {
-        ...state,
-        items: [...state.items],
-        isLoading: true,
-        error: null,
-      };
-    case 'contact/updateContact.fulfilled':
-      return {
-        ...state,
-        items: state.items.map(item =>
-          item.id !== action.payload.id ? item : action.payload
-        ),
-        visibleEditContact: false,
-        editedContact: null,
-        isLoading: false,
-        error: null,
-      };
-    case 'contact/updateContact.rejected':
-      return {
-        ...state,
-        items: [...state.items],
-        isLoading: false,
-        error: action.payload,
-      };
-
-    //! def
-    default:
-      return state;
-  }
+const handlePending = state => {
+  state.isLoading = true;
 };
+const handleRejected = (state, { payload }) => {
+  state.isLoading = false;
+  state.error = payload;
+};
+
+const initialState = {
+  items: [],
+  isLoading: false,
+  error: null,
+  showModal: false,
+  editedContact: null,
+};
+
+export const contactsSlice = createSlice({
+  name: 'contacts',
+  initialState,
+  reducers: {
+    openModal: (state, { payload }) => {
+      state.showModal = payload.id === state.editedContact?.id ? false : true;
+      state.editedContact =
+        payload.id === state.editedContact?.id ? null : payload;
+    },
+
+    closeModal: state => {
+      state.showModal = false;
+      state.editedContact = null;
+    },
+  },
+  extraReducers: builder => {
+    builder
+      .addCase(getAllContacts.pending, handlePending)
+      .addCase(getAllContacts.fulfilled, (state, { payload }) => {
+        state.error = null;
+        state.isLoading = false;
+        state.items = payload;
+      })
+      .addCase(getAllContacts.rejected, handleRejected)
+
+      //// add contact
+      .addCase(addContact.pending, handlePending)
+      .addCase(addContact.fulfilled, (state, { payload }) => {
+        state.error = null;
+        state.isLoading = false;
+        state.items = [payload, ...state.items];
+      })
+      .addCase(addContact.rejected, handleRejected)
+
+      //// delete contact
+      .addCase(deleteContact.pending, handlePending)
+      .addCase(deleteContact.fulfilled, (state, { payload }) => {
+        state.error = null;
+        state.isLoading = false;
+        state.items = state.items.filter(item => item.id !== payload.id);
+      })
+      .addCase(deleteContact.rejected, handleRejected)
+
+      //// update contact
+      .addCase(updateContact.pending, handlePending)
+      .addCase(updateContact.fulfilled, (state, { payload }) => {
+        state.error = null;
+        state.isLoading = false;
+        state.showModal = false;
+        state.editedContact = null;
+        state.items = state.items.map(item =>
+          item.id !== payload.id ? item : payload
+        );
+      })
+      .addCase(updateContact.rejected, handleRejected);
+  },
+});

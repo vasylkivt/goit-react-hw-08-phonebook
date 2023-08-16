@@ -8,7 +8,6 @@ const init = {
 };
 
 export const authReducer = (state = init, action) => {
-  console.log('action:', action);
   switch (action.type) {
     case 'auth/register.pen':
       return state;
