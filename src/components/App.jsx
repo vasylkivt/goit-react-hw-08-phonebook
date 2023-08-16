@@ -1,14 +1,13 @@
 import { lazy, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
-
 import { Toaster } from 'react-hot-toast';
 
 import { PrivateRoute, PublicRoute, SharedLayout } from 'components';
 
-import { refresh } from 'redux/auth/operations';
 import { useAuth } from 'hooks';
 import { toastOptions } from 'utils/toast';
+import { authOperations } from 'redux/auth';
 
 const Home = lazy(() => import('pages/Home'));
 const Contacts = lazy(() => import('pages/Contacts'));
@@ -22,7 +21,7 @@ export const App = () => {
   const { isRefreshing } = useAuth();
 
   useEffect(() => {
-    dispatch(refresh());
+    dispatch(authOperations.refresh());
   }, [dispatch]);
 
   return (

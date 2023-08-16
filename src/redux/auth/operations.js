@@ -13,6 +13,7 @@ const clearAuthHeader = () => {
 };
 
 //! action register
+
 const registerPen = () => ({ type: 'auth/register.pen' });
 const registerFul = data => ({ type: 'auth/register.ful', payload: data });
 const registerRej = () => ({ type: 'auth/register.rej' });

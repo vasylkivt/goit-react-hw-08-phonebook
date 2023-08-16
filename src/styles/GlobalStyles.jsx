@@ -7,11 +7,11 @@ html {
   scroll-behavior: smooth;
 }
 body {
-  background: url(${bg});
+  background-image: url(${bg});
   background-repeat: no-repeat;
   background-position: center; 
   background-size: cover; 
-  background-color: ${({ theme }) => theme.colors.backgroundColorDark};
+  background-color: #575757;;
 
   min-height: 100vh;
   margin: 0;

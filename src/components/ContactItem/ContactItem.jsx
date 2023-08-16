@@ -1,17 +1,23 @@
 import PropTypes from 'prop-types';
 
 import { BsInfo } from 'react-icons/bs';
-import { Item, Text, TextWrap, MoreDetails, ButtonDel } from './ContactItem.style';
+import {
+  Item,
+  Text,
+  TextWrap,
+  MoreDetails,
+  ButtonDel,
+} from './ContactItem.style';
 
-
-import { contactsOperations, contactsSlice } from 'redux/contacts';
+import { contactsOperations } from 'redux/contacts';
 import { useContacts } from 'hooks';
 import { useDispatch } from 'react-redux';
 import { AiOutlineDelete } from 'react-icons/ai';
+import { contactsSlice } from 'redux/contacts/slice';
 
 export const ContactItem = ({ contact }) => {
   const dispatch = useDispatch();
-  
+
   const { id, name } = contact;
   const { loading } = useContacts();
 
@@ -20,7 +26,7 @@ export const ContactItem = ({ contact }) => {
   };
 
   const handleInfoBtn = () => {
-    dispatch(contactsSlice.editContact(contact));
+    dispatch(contactsSlice.actions.openModal(contact));
   };
 
   return (

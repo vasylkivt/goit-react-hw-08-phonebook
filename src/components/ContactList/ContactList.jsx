@@ -8,7 +8,7 @@ import { getAllContacts } from 'redux/contacts/operations';
 import { useAuth, useContacts, useFilter } from 'hooks';
 
 export const ContactList = () => {
-  const { contacts, loading, error, visibleEditContact } = useContacts();
+  const { contacts, loading, error, showModal } = useContacts();
   const { visibleContacts } = useFilter();
   const { isLoggedIn } = useAuth();
 
@@ -30,7 +30,7 @@ export const ContactList = () => {
           <ContactItem contact={contact} key={contact.id} />
         ))}
       </List>
-      {visibleEditContact && <MoreDetailsForm />}
+      {showModal && <MoreDetailsForm />}
 
       {!loading && !isContactEmpty && isVisibleContactsEmpty && (
         <Notification>
