@@ -10,6 +10,7 @@ export const SharedLayout = () => {
       <main>
         <Container>
           <Section>
+
             <Suspense
               fallback={
                 <BarLoader
