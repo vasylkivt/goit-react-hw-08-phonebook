@@ -9,7 +9,7 @@ import {
   ButtonDel,
 } from './ContactItem.style';
 
-import { contactsOperations, contactsActions } from 'redux/contacts';
+import { contactsOperations } from 'redux/contacts';
 import { useContacts } from 'hooks';
 import { useDispatch } from 'react-redux';
 import { AiOutlineDelete } from 'react-icons/ai';
