@@ -9,7 +9,7 @@ import { Button, PersonIcon, TelephoneIcon } from 'components';
 import { contactFormScheme, isAlreadyOnList } from './FormValidation';
 import { GrFormClose } from 'react-icons/gr';
 import { ContactField } from './ContactField';
-import { toast } from 'react-hot-toast';
+
 
 export const MoreDetailsForm = () => {
   const [isEdit, setIsEdit] = useState(false);
@@ -23,26 +23,18 @@ export const MoreDetailsForm = () => {
   const onSubmit = formData => {
     const { name, number } = formData;
     const updateData = {};
-    let message = '';
+
 
     if (isAlreadyOnList(editedContact.id, contacts, formData)) return;
     if (name !== editedContact.name) updateData.name = name;
     if (number !== editedContact.number) updateData.number = number;
+    
     if (Object.keys(updateData).length === 0) {
       dispatch(contactsSlice.closeModal());
       return;
     }
 
-    if (updateData.name) {
-      message += `'${editedContact.name}' changed to '${updateData.name}' \n`;
-    }
-    if (updateData.number) {
-      message += `'${editedContact.number}' changed to '${updateData.number}' \n`;
-    }
-
-    toast.success(message);
-
-    dispatch(contactsOperations.updateContact(editedContact.id, updateData));
+    dispatch(contactsOperations.updateContact(editedContact, updateData));
   };
 
   return (

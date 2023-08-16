@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-
+import { BarLoader } from 'react-spinners';
 import { List, ListWrap } from './ContactList.style';
 import { ContactItem, Filter, MoreDetailsForm, Notification } from 'components';
 
@@ -8,8 +8,7 @@ import { getAllContacts } from 'redux/contacts/operations';
 import { useAuth, useContacts, useFilter } from 'hooks';
 
 export const ContactList = () => {
-  const { contacts, loading, error, visibleEditContact } =
-    useContacts();
+  const { contacts, loading, error, visibleEditContact } = useContacts();
   const { visibleContacts } = useFilter();
   const { isLoggedIn } = useAuth();
 
@@ -30,9 +29,8 @@ export const ContactList = () => {
         {visibleContacts.map(contact => (
           <ContactItem contact={contact} key={contact.id} />
         ))}
-
       </List>
-        {visibleEditContact && <MoreDetailsForm />}
+      {visibleEditContact && <MoreDetailsForm />}
 
       {!loading && !isContactEmpty && isVisibleContactsEmpty && (
         <Notification>
@@ -47,7 +45,7 @@ export const ContactList = () => {
       )}
 
       {loading && (
-        <Notification $position={'absolute'}>Loading... 🕐</Notification>
+        <BarLoader color="#2A9D8F" width="100%" speedMultiplier={0.5} />
       )}
 
       {error && <Notification>{error}... 😢😢😢</Notification>}

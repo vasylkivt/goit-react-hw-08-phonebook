@@ -1,8 +1,10 @@
 const init = {
   user: { name: null, email: null },
   token: null,
+  loading: false,
+  error: null,
   isLoggedIn: false,
-   isRefreshing: false,
+  isRefreshing: false,
 };
 
 export const authReducer = (state = init, action) => {
@@ -45,24 +47,22 @@ export const authReducer = (state = init, action) => {
       return {
         ...state,
         user: { ...state.user },
-           isRefreshing: true,
+        isRefreshing: true,
       };
     case 'auth/refresh.ful':
-    
-      
-       return {
-         ...state,
-         user: action.payload,
- isRefreshing: false,
-         isLoggedIn: true,
-       };
+      return {
+        ...state,
+        user: action.payload,
+        isRefreshing: false,
+        isLoggedIn: true,
+      };
     case 'auth/refresh.rej':
       return {
         ...state,
         user: { ...state.user },
-           isRefreshing: false,
+        isRefreshing: false,
       };
-    
+
     //==
     default:
       return state;

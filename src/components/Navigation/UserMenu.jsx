@@ -3,7 +3,7 @@ import { authOperations } from 'redux/auth';
 
 import { useAuth } from 'hooks';
 import { Button } from 'components';
-import { StyledLink, UserName } from './Nav.style';
+import { StyledNavLink, UserName } from './Nav.style';
 
 export const UserMenu = () => {
   const dispatch = useDispatch();
@@ -11,8 +11,8 @@ export const UserMenu = () => {
 
   return (
     <>
-      <StyledLink to="/profile">User Profile</StyledLink>
-      <UserName to="/profile">{user.name}</UserName>
+      <StyledNavLink to="/profile">User Profile</StyledNavLink>
+      <UserName>{user.name}</UserName>
       <Button type="button" onClick={() => dispatch(authOperations.logout())}>
         Logout
       </Button>
