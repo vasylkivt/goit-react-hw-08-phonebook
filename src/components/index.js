@@ -13,6 +13,7 @@ export * from 'components/HomeHero/HomeHero';
 export * from 'components/Filter/Filter';
 export * from 'components/ContactList/ContactList';
 export * from 'components/ContactItem/ContactItem';
+export * from 'components/Profile/Profile';
 
 export * from 'components/Forms/ContactForm/ContactForm';
 export * from 'components/Forms/LoginForm/LoginForm';

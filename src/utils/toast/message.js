@@ -56,13 +56,13 @@ export const logoutError = error => {
   toast.error(`Unknown error... \n ${error.message}`);
 };
 export const refreshSuccess = data => {
-  toast.success(`Вітаю, з поверненням ${toCapitalize(data.name)}`);
+  toast.success(`Welcome back ${toCapitalize(data.name)}`);
 };
 export const refreshNoToken = () => {
-  toast.success(`Вітаю `);
+  toast.success(`Welcome to the PHONEBOOK app. `);
 };
-export const refreshError = () => {
-  toast.error(`error `);
+export const refreshError = error => {
+  toast.error(`Unknown error... \n ${error.message}`);
 };
 
 function toCapitalize(string) {
