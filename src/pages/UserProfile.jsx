@@ -1,4 +1,10 @@
+import { Profile } from 'components';
+
 const UserProfile = () => {
-  return <div>UserProfile</div>;
+  return (
+    <>
+      <Profile />
+    </>
+  );
 };
 export default UserProfile;

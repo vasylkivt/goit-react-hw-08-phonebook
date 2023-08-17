@@ -44,9 +44,12 @@ export const ContactList = () => {
         </Notification>
       )}
 
-      {loading && (
-        <BarLoader color="#2A9D8F" width="100%" speedMultiplier={0.5} />
-      )}
+      <BarLoader
+        loading={loading}
+        color="#2A9D8F"
+        width="100%"
+        speedMultiplier={0.5}
+      />
 
       {error && <Notification>{error}... 😢😢😢</Notification>}
     </ListWrap>
