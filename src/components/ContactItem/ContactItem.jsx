@@ -13,7 +13,7 @@ import { contactsOperations } from 'redux/contacts';
 import { useContacts } from 'hooks';
 import { useDispatch } from 'react-redux';
 import { AiOutlineDelete } from 'react-icons/ai';
-import { contactsSlice } from 'redux/contacts/slice';
+import { openModal } from 'redux/contacts/slice';
 
 export const ContactItem = ({ contact }) => {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ export const ContactItem = ({ contact }) => {
   };
 
   const handleInfoBtn = () => {
-    dispatch(contactsSlice.actions.openModal(contact));
+    dispatch(openModal(contact));
   };
 
   return (

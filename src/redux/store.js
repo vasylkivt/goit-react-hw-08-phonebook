@@ -12,9 +12,9 @@ import {
 
 import storage from 'redux-persist/lib/storage';
 
-import { authReducer } from './auth/slice';
+import { authSlice } from './auth/slice';
 import { contactsSlice } from './contacts/slice';
-import { filterReducer } from './filter/slice';
+import { filterSlice } from './filter/slice';
 
 const persistConfig = {
   key: 'auth',
@@ -22,12 +22,12 @@ const persistConfig = {
   whitelist: ['token'],
 };
 
-const persistedReducer = persistReducer(persistConfig, authReducer);
+const persistedReducer = persistReducer(persistConfig, authSlice.reducer);
 
 export const store = configureStore({
   reducer: {
     auth: persistedReducer,
-    filter: filterReducer,
+    filter: filterSlice.reducer,
     contacts: contactsSlice.reducer,
   },
   middleware: getDefaultMiddleware =>
