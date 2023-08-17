@@ -29,9 +29,7 @@ export const registerSuccess = data => {
 
 export const registerError = error => {
   if (error.response.status === 400) {
-    toast.error(
-      `This email already exists 😢,\n enter another email... \n ❓${error.message}`
-    );
+    toast.error(`This email already exists 😢,\n enter another email...`);
     return;
   }
   if (error.response.status === 500) {
@@ -43,12 +41,29 @@ export const registerError = error => {
   toast.error(`Unknown error... \n ${error.message}`);
 };
 
-export const loginSuccess = () => {};
-export const loginError = () => {};
-export const logoutSuccess = () => {};
-export const logoutError = () => {};
-export const refreshSuccess = () => {};
-export const refreshError = () => {};
+export const loginSuccess = data => {
+  toast.success(
+    `You are successfully logged in as  ${toCapitalize(data.user.name)}`
+  );
+};
+export const loginError = () => {
+  toast.error(`Wrong login or password `);
+};
+export const logoutSuccess = () => {
+  toast.success(`You are successfully logged in 🥲, come back soon 🥹.`);
+};
+export const logoutError = error => {
+  toast.error(`Unknown error... \n ${error.message}`);
+};
+export const refreshSuccess = data => {
+  toast.success(`Вітаю, з поверненням ${toCapitalize(data.name)}`);
+};
+export const refreshNoToken = () => {
+  toast.success(`Вітаю `);
+};
+export const refreshError = () => {
+  toast.error(`error `);
+};
 
 function toCapitalize(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);

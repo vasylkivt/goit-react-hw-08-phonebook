@@ -59,9 +59,9 @@ export const App = () => {
               <Route path="*" element={<ErrorPage />} />
             </Route>
           </Routes>
-          <Toaster toastOptions={toastOptions} />
         </>
       )}
+      <Toaster toastOptions={toastOptions} />
     </>
   );
 };
