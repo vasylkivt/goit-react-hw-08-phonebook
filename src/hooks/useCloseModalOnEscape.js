@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 
-import { contactsSlice } from 'redux/contacts/slice';
+import { closeModal } from 'redux/contacts/slice';
 
 export const useCloseModalOnEscape = dispatch => {
   useEffect(() => {
     const handleKeyDown = evt => {
-      if (evt.code === 'Escape') dispatch(contactsSlice.actions.closeModal());
+      if (evt.code === 'Escape') dispatch(closeModal());
     };
 
     window.addEventListener('keydown', handleKeyDown);

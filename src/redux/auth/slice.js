@@ -1,70 +1,58 @@
-const init = {
+import { createSlice } from '@reduxjs/toolkit';
+import { login, logout, refresh, register } from './operations';
+
+const initialState = {
   user: { name: null, email: null },
   token: null,
-  loading: false,
+  isLoading: false,
   error: null,
   isLoggedIn: false,
   isRefreshing: false,
 };
 
-export const authReducer = (state = init, action) => {
-  switch (action.type) {
-    case 'auth/register.pen':
-      return state;
-    case 'auth/register.ful':
-      return {
-        ...state,
-        user: action.payload.user,
-        token: action.payload.token,
-        isLoggedIn: true,
-      };
-    case 'auth/register.rej':
-      return state;
-
-    //==
-    case 'auth/login.pen':
-      return state;
-    case 'auth/login.ful':
-      return {
-        ...state,
-        user: action.payload.user,
-        token: action.payload.token,
-        isLoggedIn: true,
-      };
-    case 'auth/login.rej':
-      return state;
-
-    //==
-    case 'auth/logout.pen':
-      return state;
-    case 'auth/logout.ful':
-      return init;
-    case 'auth/logout.rej':
-      return state;
-
-    //==
-    case 'auth/refresh.pen':
-      return {
-        ...state,
-        user: { ...state.user },
-        isRefreshing: true,
-      };
-    case 'auth/refresh.ful':
-      return {
-        ...state,
-        user: action.payload,
-        isRefreshing: false,
-        isLoggedIn: true,
-      };
-    case 'auth/refresh.rej':
-      return {
-        ...state,
-        user: { ...state.user },
-        isRefreshing: false,
-      };
-
-    //==
-    default:
-      return state;
-  }
+const handlePending = state => {
+  state.isLoading = true;
 };
+const handleRejected = (state, { payload }) => {
+  state.isLoading = false;
+  state.error = payload;
+};
+
+export const authSlice = createSlice({
+  name: 'auth',
+  initialState,
+  extraReducers: builder => {
+    builder
+      .addCase(register.pending, handlePending)
+      .addCase(register.fulfilled, (state, { payload }) => {
+        state.user = payload.user;
+        state.token = payload.token;
+        state.isLoggedIn = true;
+      })
+      .addCase(register.rejected, handleRejected)
+      .addCase(login.pending, handlePending)
+      .addCase(login.fulfilled, (state, { payload }) => {
+        state.user = payload.user;
+        state.token = payload.token;
+        state.isLoggedIn = true;
+      })
+      .addCase(login.rejected, handleRejected)
+      .addCase(logout.pending, handlePending)
+      .addCase(logout.fulfilled, () => initialState)
+      .addCase(logout.rejected, handleRejected)
+      .addCase(refresh.pending, state => {
+        state.isLoading = true;
+        state.isRefreshing = true;
+      })
+      .addCase(refresh.fulfilled, (state, { payload }) => {
+        state.user = payload;
+        state.isRefreshing = false;
+        state.isLoggedIn = true;
+      })
+      .addCase(refresh.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.isRefreshing = false;
+        state.error = payload;
+      });
+  },
+});

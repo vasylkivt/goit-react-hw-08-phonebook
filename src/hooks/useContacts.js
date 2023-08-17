@@ -12,7 +12,6 @@ export const useContacts = () => {
   const contacts = useSelector(selectContacts);
   const loading = useSelector(selectLoading);
   const error = useSelector(selectError);
-
   const showModal = useSelector(selectShowModal);
   const editedContact = useSelector(selectEditedContact);
 

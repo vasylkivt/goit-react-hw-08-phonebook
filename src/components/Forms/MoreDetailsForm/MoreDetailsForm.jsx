@@ -9,7 +9,7 @@ import { Button, PersonIcon, TelephoneIcon } from 'components';
 import { contactFormScheme, isAlreadyOnList } from './FormValidation';
 import { GrFormClose } from 'react-icons/gr';
 import { ContactField } from './ContactField';
-import { contactsSlice } from 'redux/contacts/slice';
+import { closeModal } from 'redux/contacts/slice';
 
 export const MoreDetailsForm = () => {
   const [isEdit, setIsEdit] = useState(false);
@@ -29,7 +29,7 @@ export const MoreDetailsForm = () => {
     if (number !== editedContact.number) updateData.number = number;
 
     if (Object.keys(updateData).length === 0) {
-      dispatch(contactsSlice.actions.closeModal());
+      dispatch(closeModal());
       return;
     }
 
@@ -72,7 +72,7 @@ export const MoreDetailsForm = () => {
 
         <ButtonClose
           id="editButton"
-          onClick={() => dispatch(contactsSlice.actions.closeModal())}
+          onClick={() => dispatch(closeModal())}
           type="button"
         >
           <GrFormClose />

@@ -80,3 +80,5 @@ export const contactsSlice = createSlice({
       .addCase(updateContact.rejected, handleRejected);
   },
 });
+
+export const { openModal, closeModal } = contactsSlice.actions;

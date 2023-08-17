@@ -1,5 +1,6 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { store } from 'redux/store';
+
 import { toastMessage } from 'utils/toast';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
@@ -12,81 +13,72 @@ const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization = '';
 };
 
-//! action register
+//!  register
 
-const registerPen = () => ({ type: 'auth/register.pen' });
-const registerFul = data => ({ type: 'auth/register.ful', payload: data });
-const registerRej = () => ({ type: 'auth/register.rej' });
-
-export const register = regData => async dispatch => {
-  try {
-    dispatch(registerPen());
-    const { data } = await axios.post('/users/signup', regData);
-    toastMessage.registerSuccess(data);
-    dispatch(registerFul(data));
-  } catch (error) {
-    toastMessage.registerError(error);
-    dispatch(registerRej(error));
+export const register = createAsyncThunk(
+  'auth/register',
+  async (registerData, thinkAPI) => {
+    try {
+      const { data } = await axios.post('/users/signup', registerData);
+      toastMessage.registerSuccess(data);
+      setAuthHeader(data.token);
+      return data;
+    } catch (error) {
+      toastMessage.registerError(error);
+      thinkAPI.rejectWithValue(error.message);
+    }
   }
-};
+);
 
 //!  action login
-const loginPen = () => ({ type: 'auth/login.pen' });
-const loginFul = data => ({ type: 'auth/login.ful', payload: data });
-const loginRej = () => ({ type: 'auth/login.rej' });
-
-export const login = logData => async dispatch => {
-  try {
-    dispatch(loginPen());
-    const { data } = await axios.post('/users/login', logData);
-    setAuthHeader(data.token);
-    dispatch(loginFul(data));
-  } catch (error) {
-    dispatch(loginRej(error));
+export const login = createAsyncThunk(
+  'auth/login',
+  async (loginData, thinkAPI) => {
+    try {
+      const { data } = await axios.post('/users/login', loginData);
+      // toastMessage.registerSuccess(data);
+      setAuthHeader(data.token);
+      return data;
+    } catch (error) {
+      console.log('error:', error);
+      // toastMessage.registerError(error);
+      thinkAPI.rejectWithValue(error.message);
+    }
   }
-};
+);
 
 //!  action logout
 
-const logoutPen = () => ({ type: 'auth/logout.pen' });
-const logoutFul = () => ({ type: 'auth/logout.ful' });
-const logoutRej = () => ({ type: 'auth/logout.rej' });
-
-export const logout = () => async dispatch => {
+export const logout = createAsyncThunk('auth/logout', async (_, thinkAPI) => {
   try {
-    dispatch(logoutPen());
-    await axios.post('/users/logout');
-
+    const { data } = await axios.post('/users/logout');
+    // toastMessage.registerSuccess(data);
     clearAuthHeader();
-    dispatch(logoutFul());
+    return data;
   } catch (error) {
-    dispatch(logoutRej(error));
+    console.log('error:', error);
+    // toastMessage.registerError(error);
+    thinkAPI.rejectWithValue(error.message);
   }
-};
+});
+
 //!  action refresh
 
-const refreshPen = () => ({ type: 'auth/refresh.pen' });
-const refreshFul = data => ({ type: 'auth/refresh.ful', payload: data });
-const refreshRej = () => ({ type: 'auth/refresh.rej' });
+export const refresh = createAsyncThunk('auth/refresh', async (_, thinkAPI) => {
+  const { auth } = thinkAPI.getState();
 
-export const refresh = () => async dispatch => {
-  const state = store.getState();
-  const token = state.auth.token;
-
-  if (token === null) {
-    dispatch(refreshRej());
-    //! в createAsyncThunk треба робити штучну помилку(реджект)
-    return;
+  if (auth.token === null) {
+    return thinkAPI.rejectWithValue();
   }
-
-  setAuthHeader(token);
-
+  setAuthHeader(auth.token);
   try {
-    dispatch(refreshPen());
     const { data } = await axios.get('/users/current');
 
-    dispatch(refreshFul(data));
+    // toastMessage.registerSuccess(data);
+
+    return data;
   } catch (error) {
-    dispatch(refreshRej(error));
+    // toastMessage.registerError(error);
+    thinkAPI.rejectWithValue(error.message);
   }
-};
+});
