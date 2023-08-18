@@ -1,15 +1,23 @@
-import { Formik } from 'formik';
-import { useCloseModalOnEscape, useContacts } from 'hooks';
+import { ErrorMessage, Formik } from 'formik';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-
-import { contactsOperations } from 'redux/contacts';
-import { ButtonClose, FormStyled, MoreDetailsWrap } from './MoreDetails.style';
-import { Button, PersonIcon, TelephoneIcon } from 'components';
-import { contactFormScheme, isAlreadyOnList } from './FormValidation';
 import { GrFormClose } from 'react-icons/gr';
-import { ContactField } from './ContactField';
+import { AiFillEdit } from 'react-icons/ai';
+
 import { closeModal } from 'redux/contacts/slice';
+import { useCloseModalOnEscape, useContacts } from 'hooks';
+import { contactsOperations } from 'redux/contacts';
+
+import {
+  ButtonClose,
+  ButtonEdit,
+  FormStyled,
+  MoreDetailsWrap,
+  Title,
+} from './MoreDetails.style';
+import { Button, InvalidInput, PersonIcon, TelephoneIcon } from 'components';
+import { contactFormScheme, isAlreadyOnList } from './FormValidation';
+import { Input } from '../Input';
 
 export const MoreDetailsForm = () => {
   const [isEdit, setIsEdit] = useState(false);
@@ -38,7 +46,8 @@ export const MoreDetailsForm = () => {
 
   return (
     <>
-      <MoreDetailsWrap id="modal">
+      <MoreDetailsWrap>
+        <Title>Contact Info</Title>
         <Formik
           enableReinitialize
           initialValues={{
@@ -50,21 +59,38 @@ export const MoreDetailsForm = () => {
         >
           {() => (
             <FormStyled>
-              <ContactField
+              <Input
                 icon={<PersonIcon />}
+                type="text"
                 name="name"
                 label="Contact name"
-                isEdit={isEdit}
-                setIsEdit={setIsEdit}
-              />
+                disabled={!isEdit}
+              >
+                <ErrorMessage name="name" component={InvalidInput} />
+                <ButtonEdit
+                  onClick={() => setIsEdit(prev => !prev)}
+                  type="button"
+                >
+                  <AiFillEdit />
+                </ButtonEdit>
+              </Input>
 
-              <ContactField
+              <Input
                 icon={<TelephoneIcon />}
+                type="tel"
                 name="number"
                 label="Phone number"
-                isEdit={isEdit}
-                setIsEdit={setIsEdit}
-              />
+                disabled={!isEdit}
+              >
+                <ErrorMessage name="number" component={InvalidInput} />
+                <ButtonEdit
+                  onClick={() => setIsEdit(prev => !prev)}
+                  type="button"
+                >
+                  <AiFillEdit />
+                </ButtonEdit>
+              </Input>
+
               {isEdit && <Button type="submit">Edit contact</Button>}
             </FormStyled>
           )}

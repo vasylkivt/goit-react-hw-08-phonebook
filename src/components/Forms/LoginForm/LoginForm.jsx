@@ -4,9 +4,6 @@ import { useDispatch } from 'react-redux';
 import {
   Button,
   FormStyled,
-  InputName,
-  InputStyled,
-  InputWrap,
   PersonIcon,
   StyledLink,
   Title,
@@ -14,7 +11,8 @@ import {
   PasswordIcon,
 } from 'components';
 
-import { login } from 'redux/auth/operations';
+import { Input } from '../Input';
+import { authOperations } from 'redux/auth';
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
@@ -23,21 +21,21 @@ export const LoginForm = () => {
     <Formik
       initialValues={{ email: '', password: '' }}
       onSubmit={values => {
-        dispatch(login(values));
+        dispatch(authOperations.login(values));
       }}
     >
       <FormStyled>
         <Title>Login</Title>
-        <InputWrap>
-          <PersonIcon />
-          <InputStyled autoComplete="off" type="text" name="email" required />
-          <InputName>Email</InputName>
-        </InputWrap>
-        <InputWrap>
-          <PasswordIcon />
-          <InputStyled autoComplete="off" type="password" name="password" required />
-          <InputName>Password</InputName>
-        </InputWrap>
+
+        <Input icon={<PersonIcon />} type="text" name="email" label="Email" />
+
+        <Input
+          icon={<PasswordIcon />}
+          type="password"
+          name="password"
+          label="Password"
+        />
+
         <Text>
           Don't have an account yet?{' '}
           <StyledLink to="/register">

@@ -2,21 +2,16 @@ import { Formik } from 'formik';
 
 import {
   Button,
+  Title,
   FormStyled,
-  InputName,
-  InputStyled,
-  InputWrap,
   PersonIcon,
   StyledLink,
-
-  Title,
   Text,
   PasswordIcon,
-  EMailIcon,
 } from 'components';
 import { useDispatch } from 'react-redux';
-
-import { register } from 'redux/auth/operations';
+import { authOperations } from 'redux/auth';
+import { Input } from '../Input';
 
 export const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -25,7 +20,7 @@ export const RegisterForm = () => {
       initialValues={{ name: '', email: '', password: '' }}
       onSubmit={values => {
         dispatch(
-          register({
+          authOperations.register({
             ...values,
           })
         );
@@ -33,26 +28,17 @@ export const RegisterForm = () => {
     >
       <FormStyled>
         <Title>Sign up</Title>
-        <InputWrap>
-          <PersonIcon />
-          <InputStyled autoComplete="off" type="text" name="name" required />
-          <InputName>Name</InputName>
-        </InputWrap>
-        <InputWrap>
-          <EMailIcon />
-          <InputStyled autoComplete="off" type="email" name="email" required />
-          <InputName>Email</InputName>
-        </InputWrap>
-        <InputWrap>
-          <PasswordIcon />
-          <InputStyled
-            autoComplete="off"
-            type="password"
-            name="password"
-            required
-          />
-          <InputName>Password</InputName>
-        </InputWrap>
+
+        <Input icon={<PersonIcon />} type="text" name="name" label="Name" />
+        <Input icon={<PersonIcon />} type="email" name="email" label="Email" />
+
+        <Input
+          icon={<PasswordIcon />}
+          type="password"
+          name="password"
+          label="Password"
+        />
+
         <Text>
           Already have an account?{' '}
           <StyledLink to="/login">

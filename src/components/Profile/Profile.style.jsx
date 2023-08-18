@@ -35,7 +35,7 @@ export const TextWrap = styled.div`
 export const Text = styled.p`
   color: ${({ theme, $color }) => ($color ? $color : theme.colors.white)};
   max-width: 800px;
-  text-transform: capitalize;
+
   font-size: ${({ $fontSize }) => (!$fontSize ? '18px' : $fontSize)};
   margin-bottom: 10px;
   line-height: 1.4;

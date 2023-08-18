@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Field, Form } from 'formik';
+import { Form } from 'formik';
 
 export const MoreDetailsWrap = styled.div`
   position: absolute;
@@ -8,10 +8,7 @@ export const MoreDetailsWrap = styled.div`
   right: 20px;
   z-index: 2;
   width: 70%;
-  padding: 30px 30px 30px 60px;
-  display: flex;
-  gap: 35px;
-  flex-direction: column;
+  padding: 50px 30px 30px 60px;
 
   background: ${({ theme }) => theme.colors.black}90;
   border: 2px solid rgba(255, 255, 255, 0.5);
@@ -19,28 +16,24 @@ export const MoreDetailsWrap = styled.div`
   backdrop-filter: blur(15px);
 `;
 
+export const Title = styled.h2`
+  position: absolute;
+  color: ${({ theme }) => theme.colors.white};
+  font-weight: 500;
+  font-size: 22px;
+  top: 15px;
+  left: 20px;
+`;
+
 export const FormStyled = styled(Form)`
   z-index: 2;
 
   display: flex;
-  gap: 35px;
+  gap: 15px;
   flex-direction: column;
-`;
 
-export const InputStyled = styled(Field)`
-  height: 50px;
-  background: transparent;
-  border: none;
-  outline: none;
-  text-transform: capitalize;
-
-  padding: 0 35px 0 5px;
-  color: #fff;
-
-  &:focus ~ label,
-  &:valid ~ label {
-    top: -5px;
-    color: ${({ theme }) => theme.colors.accent};
+  & input {
+    text-transform: capitalize;
   }
 `;
 
