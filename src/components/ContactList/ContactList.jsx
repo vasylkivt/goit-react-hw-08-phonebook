@@ -4,8 +4,8 @@ import { BarLoader } from 'react-spinners';
 import { List, ListWrap } from './ContactList.style';
 import { ContactItem, Filter, MoreDetailsForm, Notification } from 'components';
 
-import { getAllContacts } from 'redux/contacts/operations';
 import { useAuth, useContacts, useFilter } from 'hooks';
+import { contactsOperations } from 'redux/contacts';
 
 export const ContactList = () => {
   const { contacts, loading, error, showModal } = useContacts();
@@ -15,7 +15,7 @@ export const ContactList = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllContacts());
+    dispatch(contactsOperations.getAllContacts());
   }, [dispatch, isLoggedIn]);
 
   const isContactEmpty = contacts.length === 0;
