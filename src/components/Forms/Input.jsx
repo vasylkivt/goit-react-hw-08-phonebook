@@ -10,7 +10,6 @@ export const Input = ({ children, icon, type, name, label, ...inputAtr }) => {
           autoComplete="off"
           type={type}
           name={name}
-          required
           placeholder="&nbsp;"
         />
         <InputName>{label}</InputName>

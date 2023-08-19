@@ -1,8 +1,8 @@
 import { ErrorMessage, Formik } from 'formik';
 import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import * as Yup from 'yup';
 
-import { contactFormScheme, isAlreadyOnList } from './FormValidation';
 import {
   Button,
   FormStyled,
@@ -15,6 +15,12 @@ import { selectContacts } from 'redux/contacts/selectors';
 
 import { Input } from '../Input';
 import { contactsOperations } from 'redux/contacts';
+import { isAlreadyOnList, scheme } from '../FormValidation';
+
+const schemeLogin = Yup.object().shape({
+  name: scheme.name,
+  number: scheme.number,
+});
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
@@ -38,7 +44,7 @@ export const ContactForm = () => {
           number: '',
         }}
         onSubmit={onSubmit}
-        validationSchema={contactFormScheme}
+        validationSchema={schemeLogin}
       >
         {() => (
           <FormStyled>
