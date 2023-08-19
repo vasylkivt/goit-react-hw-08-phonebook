@@ -23,7 +23,7 @@ export const scheme = {
     .max(12, 'The number should be no more than 12 digits'),
 };
 
-export const isAlreadyOnList = (editedId, list, data) => {
+export const isAlreadyOnList = (list, data, editedId) => {
   if (
     list.find(({ name, id }) => {
       if (id === editedId) return false;
