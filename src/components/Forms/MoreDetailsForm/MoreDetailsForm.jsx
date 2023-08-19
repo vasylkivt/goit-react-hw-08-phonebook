@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { GrFormClose } from 'react-icons/gr';
 import { AiFillEdit } from 'react-icons/ai';
+import * as Yup from 'yup';
 
 import { closeModal } from 'redux/contacts/slice';
 import { useCloseModalOnEscape, useContacts } from 'hooks';
@@ -16,8 +17,14 @@ import {
   Title,
 } from './MoreDetails.style';
 import { Button, InvalidInput, PersonIcon, TelephoneIcon } from 'components';
-import { contactFormScheme, isAlreadyOnList } from './FormValidation';
+
 import { Input } from '../Input';
+import { isAlreadyOnList, scheme } from '../FormValidation';
+
+const schemeLogin = Yup.object().shape({
+  name: scheme.name,
+  number: scheme.number,
+});
 
 export const MoreDetailsForm = () => {
   const [isEdit, setIsEdit] = useState(false);
@@ -55,7 +62,7 @@ export const MoreDetailsForm = () => {
             number: initialNumber,
           }}
           onSubmit={onSubmit}
-          validationSchema={contactFormScheme}
+          validationSchema={schemeLogin}
         >
           {() => (
             <FormStyled>

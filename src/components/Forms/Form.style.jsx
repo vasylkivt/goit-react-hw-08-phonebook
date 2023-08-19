@@ -16,7 +16,7 @@ export const FormStyled = styled(Form)`
   backdrop-filter: blur(15px);
   display: flex;
   gap: 25px;
-  max-height: 500px;
+
   flex-direction: column;
 `;
 
@@ -115,9 +115,16 @@ export const StyledLink = styled(Link)`
 
 //// Form elements ==================================
 export const InvalidInput = styled.div`
-  position: absolute;
-  bottom: -18px;
-  right: 10px;
+  /* position: absolute; */
+  margin-top: 5px;
+  /* width: 300px; */
+  padding: 5px;
+  border-radius: 5px;
+  /* z-index: 2; */
+  background-color: #00000025;
+  /* top: 50%; */
+  /* transform: translateY(-50%); */
+  /* left: calc(100% + 10px); */
   color: ${({ theme: { colors } }) => colors.red};
 `;
 
