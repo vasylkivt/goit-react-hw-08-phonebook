@@ -39,7 +39,7 @@ export const MoreDetailsForm = () => {
     const { name, number } = formData;
     const updateData = {};
 
-    if (isAlreadyOnList(editedContact.id, contacts, formData)) return;
+    if (isAlreadyOnList(contacts, formData, editedContact.id)) return;
     if (name !== editedContact.name) updateData.name = name;
     if (number !== editedContact.number) updateData.number = number;
 
