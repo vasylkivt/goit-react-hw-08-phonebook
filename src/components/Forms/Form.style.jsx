@@ -14,7 +14,6 @@ export const FormStyled = styled(Form)`
   border: 2px solid rgba(255, 255, 255, 0.5);
   border-radius: 20px;
   backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
   display: flex;
   gap: 25px;
 

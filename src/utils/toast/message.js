@@ -3,12 +3,6 @@ import { toast } from 'react-hot-toast';
 export const add = contact => {
   toast.success(`${toCapitalize(contact.name)} added to your contact list.`);
 };
-export const addNameError = data => {
-  toast.error(`${data.name}  is already in contacts. `);
-};
-export const addNumberError = data => {
-  toast.error(`Number "${data.number}" is already in contacts. `);
-};
 
 export const remove = name => {
   toast.success(`${toCapitalize(name)} deleted from your contacts list.`);

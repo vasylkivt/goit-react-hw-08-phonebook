@@ -19,5 +19,4 @@ export const Header = styled.header`
   border: 2px solid rgba(255, 255, 255, 0.5);
   border-radius: 2px;
   backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
 `;
